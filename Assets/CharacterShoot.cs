@@ -11,6 +11,7 @@ public class CharacterShoot : MonoBehaviour
 	[SerializeField]
 	Animator animator;
 	public Transform camera;
+	public FireWeapon gun;
 
 	public bool WeaponEquiped = false;
 	public float CurrentHoldWeaponCoolDown = 0.0f;
@@ -56,18 +57,23 @@ public class CharacterShoot : MonoBehaviour
 
 		if (Physics.Raycast(ImpactPoint, out hit))
 		{
-			GameObject Touchedstuff = hit.collider.gameObject;
-			Vector3 Direction = hit.point - transform.position ;
+
+			Vector3 Direction = hit.point - transform.position;
 			Direction.Normalize();
-			Instantiate(Bullet, transform.position + (transform.forward * BulletOffset), Quaternion.LookRotation(new Vector3(Direction.x,0,Direction.z)));
-			transform.rotation = Quaternion.LookRotation(new Vector3(Direction.x, 0, Direction.z));
-			//transform.TransformDirection()
+			TurnInShootDirection(Direction);
+			gun.Shoot(hit.point);
+	
 		}
 		animator.SetTrigger("Shoot");
 
 		animator.SetBool("WeaponEquiped", WeaponEquiped);
 
 
+	}
+
+	public void TurnInShootDirection(Vector3 Position)
+	{
+		transform.rotation = Quaternion.LookRotation(new Vector3(Position.x, 0, Position.z));
 	}
 
 
