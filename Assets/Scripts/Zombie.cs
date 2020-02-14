@@ -81,4 +81,12 @@ public class Zombie : MonoBehaviour
 		}
 	
 	}
+
+	/*
+	 1- Faire un gun, et un mitraillette
+	 2- Caler l'animation sur le Gun et la mitraillette
+	 3- Faire des pieges
+	 4- Faire le scoring
+	 5- Faire un shop
+	 */
 }
