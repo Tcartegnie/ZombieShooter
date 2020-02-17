@@ -4,20 +4,31 @@ using UnityEngine;
 
 public class CharacterShoot : MonoBehaviour
 {
-	public GameObject Bullet;
-	public float BulletOffset;
 	public Camera cam;
-	public float Damage;
 	[SerializeField]
 	Animator animator;
-	public Transform camera;
-	public FireWeapon gun;
 
+	public List<FireWeapon> Weapons;
+
+	public FireWeapon CurrentWeapon;
+	[SerializeField]
 	public bool WeaponEquiped = false;
-	public float CurrentHoldWeaponCoolDown = 0.0f;
+	[SerializeField]
+	float CurrentHoldWeaponCoolDown = 0.0f;
 	[SerializeField]
 	float HoldWeaponCoolDown;
 	// Update is called once per frame
+
+	public FireWeapon GetCurrentWeapon()
+	{
+		return CurrentWeapon;
+	}
+
+	private void Start()
+	{
+		CurrentWeapon = Weapons[0];
+	}
+
 	void Update()
     {
 		if (Input.GetMouseButtonUp(0))
@@ -61,7 +72,7 @@ public class CharacterShoot : MonoBehaviour
 			Vector3 Direction = hit.point - transform.position;
 			Direction.Normalize();
 			TurnInShootDirection(Direction);
-			gun.Shoot(hit.point);
+			CurrentWeapon.CallShoot(hit.point);
 	
 		}
 		animator.SetTrigger("Shoot");
