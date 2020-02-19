@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CharacterShoot : MonoBehaviour
 {
+
+	public int GunAmmo;
+	public int ShotgunAmmo;
+
+	Dictionary<string, int> BulletDictionary = new Dictionary<string, int>();
+
 	public Camera cam;
 	[SerializeField]
 	Animator animator;
@@ -26,7 +32,18 @@ public class CharacterShoot : MonoBehaviour
 
 	private void Start()
 	{
-		CurrentWeapon = Weapons[0];
+ 		BulletDictionary.Add("Gun",GunAmmo);
+		BulletDictionary.Add("ShotGun",ShotgunAmmo);
+	}
+
+	public int GetAmmo(string WeaponName)
+	{
+		return BulletDictionary[WeaponName];
+	}
+
+	public void SetAmmo(string WeaponName, int AmmuValue)
+	{
+		BulletDictionary[WeaponName] = AmmuValue;
 	}
 
 	void Update()
@@ -36,6 +53,16 @@ public class CharacterShoot : MonoBehaviour
 			Shoot();
 		}
 		CheckCoolDownWeaponHolding();
+
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			CurrentWeapon.Reload(BulletDictionary[CurrentWeapon.WeaponName]);
+		}
+
+		if (Input.GetKeyDown(KeyCode.A))
+		{
+			SetAmmo(CurrentWeapon.WeaponName,99999);
+		}
 
 	}
 	public void CheckCoolDownWeaponHolding()

@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class FireWeapon : MonoBehaviour
 {
+
+	public string WeaponName;
+
 	public int CurrentLoadOut;
-	public int Ammo;
+	public int MaxLoadOut;
 	int AmmoToFill;
 
 	bool IsLoading;
 	bool OnCoolDown;
+	public float ReloadTime;
+	public float CoolDownShoot;
+
+
 
 	Vector3 BulletOffset;
 	int Damage;
@@ -18,7 +25,8 @@ public class FireWeapon : MonoBehaviour
 	GameObject Bullet;
 	[SerializeField]
 	Transform Canon;
-	
+
+
 	public int GetDamage()
 	{
 		return Damage;
@@ -26,37 +34,29 @@ public class FireWeapon : MonoBehaviour
 
 	public void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.R))
-		{
-			CallReload();
-		}
-
-		if (Input.GetKeyDown(KeyCode.A))
-		{
-			Ammo = 999999;
-		}
+	
 	}
 
-	protected void  CallReload()
+	public void Reload(int ammo)
 	{
 		if(!IsLoading)
-		StartCoroutine(Reload());
+		StartCoroutine(Reloading(ammo));
 	}
 
-	protected void Reloading()
+	protected void PutAmmo(int ammo)
 	{
-		AmmoToFill  = weapondata.LoadoutMax - CurrentLoadOut;
+		AmmoToFill  = MaxLoadOut - CurrentLoadOut;
 
 
-		if ( AmmoToFill > Ammo)
+		if ( AmmoToFill > ammo)
 		{
-			CurrentLoadOut += Ammo; 
-			Ammo = 0;
+			CurrentLoadOut += ammo;
+			ammo = 0;
 		}
 		else
 		{
 			CurrentLoadOut += AmmoToFill;
-			Ammo -= AmmoToFill;
+			ammo -= AmmoToFill;
 		}
 	}
 
@@ -82,22 +82,22 @@ public class FireWeapon : MonoBehaviour
 		}
 	}
 
-	public virtual void Shoot(Vector3 targetPoint)
+	public virtual void Shoot(Vector3 targetPoint, Vector3 DirectionToSHoot)
 	{
 		CurrentLoadOut -= 1;
-		Instantiate(Bullet, Canon.position + (Canon.forward * weapondata.BulletOffset), Quaternion.LookRotation(new Vector3(targetPoint.x, 0, targetPoint.z)));
+		Instantiate(Bullet, Canon.position + (BulletOffset), Quaternion.LookRotation(new Vector3(DirectionToSHoot.x + targetPoint.x, DirectionToSHoot.y, DirectionToSHoot.z + targetPoint.z)));
 		//transform.TransformDirection()
 	}
 
-	IEnumerator Reload()
+	IEnumerator Reloading(int ammo)
 	{
-		yield return new  WaitForSeconds(weapondata.ReloadTime);
-		Reloading();
+		yield return new  WaitForSeconds(ReloadTime);
+		PutAmmo(ammo);
 	}
 
 	IEnumerator ShootCoolDown()
 	{
-		yield return new WaitForSeconds(weapondata.CoolDown);
+		yield return new WaitForSeconds(CoolDownShoot);
 		OnCoolDown = false;
 	}
 
