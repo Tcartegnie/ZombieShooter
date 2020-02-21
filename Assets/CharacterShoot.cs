@@ -7,8 +7,9 @@ public class CharacterShoot : MonoBehaviour
 
 	public int GunAmmo;
 	public int ShotgunAmmo;
+	public int RifleAmmo;
 
-	Dictionary<string, int> BulletDictionary = new Dictionary<string, int>();
+	Dictionary<WeaponName, int> BulletDictionary = new Dictionary<WeaponName, int>();
 
 	public Camera cam;
 	[SerializeField]
@@ -24,6 +25,7 @@ public class CharacterShoot : MonoBehaviour
 	[SerializeField]
 	float HoldWeaponCoolDown;
 	// Update is called once per frame
+	WeaponName CurrentWeaponName;
 
 	public FireWeapon GetCurrentWeapon()
 	{
@@ -32,36 +34,38 @@ public class CharacterShoot : MonoBehaviour
 
 	private void Start()
 	{
- 		BulletDictionary.Add("Gun",GunAmmo);
-		BulletDictionary.Add("ShotGun",ShotgunAmmo);
+ 		BulletDictionary.Add(WeaponName.Gun,GunAmmo);
+		BulletDictionary.Add(WeaponName.Shotgun,ShotgunAmmo);
+		CurrentWeaponName = CurrentWeapon.weaponData.weaponName;
 	}
 
-	public int GetAmmo(string WeaponName)
+	public int GetAmmo(WeaponName WeaponName)
 	{
-		return BulletDictionary[WeaponName];
+		return BulletDictionary[CurrentWeaponName];
 	}
 
-	public void SetAmmo(string WeaponName, int AmmuValue)
+	public void SetAmmo(WeaponName WeaponName, int AmmoValue)
 	{
-		BulletDictionary[WeaponName] = AmmuValue;
+		BulletDictionary[CurrentWeaponName] = AmmoValue;
 	}
 
 	void Update()
     {
+		CheckCoolDownWeaponHolding();
+
 		if (Input.GetMouseButtonUp(0))
 		{
 			Shoot();
 		}
-		CheckCoolDownWeaponHolding();
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			CurrentWeapon.Reload(BulletDictionary[CurrentWeapon.WeaponName]);
+			CurrentWeapon.Reload(BulletDictionary[CurrentWeaponName]);
 		}
 
 		if (Input.GetKeyDown(KeyCode.A))
 		{
-			SetAmmo(CurrentWeapon.WeaponName,99999);
+			SetAmmo(CurrentWeaponName, 99999);
 		}
 
 	}

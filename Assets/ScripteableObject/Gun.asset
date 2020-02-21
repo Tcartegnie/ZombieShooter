@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443fc48e55bc1de46a5e1df9c4791323, type: 3}
   m_Name: Gun
   m_EditorClassIdentifier: 
+  weaponName: 0
   Damage: 1
   CoolDown: 0.1
   LoadoutMax: 6
@@ -19,3 +20,4 @@ MonoBehaviour:
   ReloadTime: 0.5
   BulletPerShoot: 1
   MaxAmmo: 120
+  BulletSpread: {x: 0.01, y: 0.01}

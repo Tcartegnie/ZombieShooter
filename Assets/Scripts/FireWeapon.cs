@@ -2,35 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponName
+{
+	Gun,
+	Shotgun,
+	Rifle
+}
 public class FireWeapon : MonoBehaviour
 {
 
-	public string WeaponName;
+	//public WeaponName WeaponName;
 
-	public int CurrentLoadOut;
-	public int MaxLoadOut;
+	int currentLoadOut;
+	//public int MaxLoadOut;
 	int AmmoToFill;
 
 	bool IsLoading;
 	bool OnCoolDown;
-	public float ReloadTime;
-	public float CoolDownShoot;
+	//public float ReloadTime;
+	//public float CoolDownShoot;
 
+	public WeaponData weaponData;
+	public BulletEmitter bulletEmitter;
 
+	public int CurrentLoadOut { get => currentLoadOut; set => currentLoadOut = value; }
 
-	Vector3 BulletOffset;
-	int Damage;
-
-	[SerializeField]
-	GameObject Bullet;
-	[SerializeField]
-	Transform Canon;
-
-
-	public int GetDamage()
-	{
-		return Damage;
-	}
+	//public int GetDamage()
+	//{
+	//	return Damage;
+	//}
 
 	public void Update()
 	{
@@ -45,7 +45,7 @@ public class FireWeapon : MonoBehaviour
 
 	protected void PutAmmo(int ammo)
 	{
-		AmmoToFill  = MaxLoadOut - CurrentLoadOut;
+		AmmoToFill  =  weaponData.LoadoutMax - CurrentLoadOut;
 
 
 		if ( AmmoToFill > ammo)
@@ -74,30 +74,34 @@ public class FireWeapon : MonoBehaviour
 
 	public void CallShoot(Vector3 targetPoint)
 	{
-		if(CheckAmmoCount() && !OnCoolDown)
+		if(!OnCoolDown && CheckAmmoCount())
 		{
 			OnCoolDown = true;
-			Shoot(targetPoint);
+			//	Shoot(targetPoint);
+			bulletEmitter.Shoot(weaponData);
+			CurrentLoadOut -= 1;
 			StartCoroutine(ShootCoolDown());
 		}
+
+	
 	}
 
-	public virtual void Shoot(Vector3 targetPoint, Vector3 DirectionToSHoot)
+	public virtual void Shoot()
 	{
-		CurrentLoadOut -= 1;
-		Instantiate(Bullet, Canon.position + (BulletOffset), Quaternion.LookRotation(new Vector3(DirectionToSHoot.x + targetPoint.x, DirectionToSHoot.y, DirectionToSHoot.z + targetPoint.z)));
+		//CurrentLoadOut -= 1;
+		//Instantiate(Bullet, Canon.position + (BulletOffset), Quaternion.LookRotation(new Vector3(DirectionToSHoot.x + targetPoint.x, DirectionToSHoot.y, DirectionToSHoot.z + targetPoint.z)));
 		//transform.TransformDirection()
 	}
 
 	IEnumerator Reloading(int ammo)
 	{
-		yield return new  WaitForSeconds(ReloadTime);
+		yield return new  WaitForSeconds(weaponData.ReloadTime);
 		PutAmmo(ammo);
 	}
 
 	IEnumerator ShootCoolDown()
 	{
-		yield return new WaitForSeconds(CoolDownShoot);
+		yield return new WaitForSeconds(weaponData.CoolDown);
 		OnCoolDown = false;
 	}
 
