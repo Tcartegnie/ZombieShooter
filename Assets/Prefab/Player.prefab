@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eaec9b870de0614185f7f463fbe21bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLoadOut: 0
   weaponData: {fileID: 0}
   bulletEmitter: {fileID: 0}
 --- !u!1 &1731054895
@@ -101,7 +100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4257827682289590249}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.2799997, z: 1.38}
+  m_LocalPosition: {x: 0, y: 2.15, z: 1.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6820192824347731214}
@@ -122,6 +121,7 @@ GameObject:
   - component: {fileID: -8440615490546384797}
   - component: {fileID: 246542674499774445}
   - component: {fileID: 4107501358257951474}
+  - component: {fileID: 84768619}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -190,6 +190,7 @@ MonoBehaviour:
   Speed: 5
   camera: {fileID: 0}
   rb: {fileID: 6820192824347731212}
+  InMove: 0
   animator: {fileID: 8455092900080418817}
   DashPower: 1000
   charactershoot: {fileID: -8440615490546384797}
@@ -206,13 +207,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9588af961df8447aefb0b5ce0b2498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunAmmo: 0
-  ShotgunAmmo: 0
+  GunAmmo: 100
+  ShotgunAmmo: 100
+  RifleAmmo: 100
   cam: {fileID: 0}
   animator: {fileID: 8455092900080418817}
-  Weapons:
-  - {fileID: 230133324}
-  - {fileID: 0}
   CurrentWeapon: {fileID: 246542674499774445}
   WeaponEquiped: 0
   CurrentHoldWeaponCoolDown: 0
@@ -229,8 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eaec9b870de0614185f7f463fbe21bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLoadOut: 0
-  weaponData: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 7351f34ee3517e04a93b6b7ac642cf0c, type: 2}
   bulletEmitter: {fileID: 4107501358257951474}
 --- !u!114 &4107501358257951474
 MonoBehaviour:
@@ -244,12 +242,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003333b5bdb2f2a43b79c7026fd334c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 9181078673813505013, guid: b0b9bd23b81e6b14e998b584b89c47f1, type: 3}
-  BulletPerShoot: 0
-  BulletLenght: 0
-  CoolDownBetweenBullet: 0
-  BulletSpread: {x: 0, y: 0}
   Canon: {fileID: 8673969147743677724}
+--- !u!114 &84768619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820192824347731215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226642ed7f4f5134b9bfd8153fa0fb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerMovement: {fileID: 6820192824347731213}
+  PlayerShoot: {fileID: -8440615490546384797}
 --- !u!1001 &1806312030302634699
 PrefabInstance:
   m_ObjectHideFlags: 0
