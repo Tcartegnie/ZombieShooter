@@ -10,56 +10,32 @@ public class CharacterMovement : MonoBehaviour
 	Transform camera;
 	[SerializeField]
 	Rigidbody rb;
-	bool InMove;
+	public bool InMove;
 	[SerializeField]
 	Animator animator;
 	public float DashPower;
 	[SerializeField]
 	CharacterShoot charactershoot;
 	public int PV;
-	// Update is called once per frame
-	void Update()
-    {
-
-		float ForwardInput = Input.GetAxis("Vertical");
-		float LateralInput = Input.GetAxis("Horizontal");
-
 	
 
-		if(Input.GetMouseButtonUp(1))
-		{
-			Dash();
-		}
+	public void StopMovement()
+	{
+		rb.velocity = Vector3.zero;
+		InMove = false;
+	}
+
+	public void Walk(float ForwardInput, float LateralInput)
+	{
+		MoveForward(ForwardInput);
+		LateralMove(LateralInput);
+		InMove = true;
+
+		Vector2 Inputs = new Vector2(ForwardInput, LateralInput);
 		
-		Vector3 movement = new Vector3(LateralInput, 0, ForwardInput);
-
-
-		float InputMagnitude = new Vector3(LateralInput, ForwardInput, 0).magnitude;
-
-		if (InputMagnitude > 0)
-		{
-			LateralMove(LateralInput);
-			MoveForward(ForwardInput);
-			GetWalkingDirection();
-			InMove = true;
-
-			if (!charactershoot.WeaponEquiped)
-			{
-				LookInDirection(GetWalkingDirection());
-			}
-
+		animator.SetBool("InMove", InMove);
+		animator.SetFloat("Speed", Inputs.magnitude);
 		
-		}
-		else
-		{
-			rb.velocity = Vector3.zero;
-			InMove = false;
-		}
-
-
-		animator.SetBool("InMove",InMove);
-		animator.SetFloat("Speed",InputMagnitude);
-
 	}
 
 	public void MoveForward(float Direction)
@@ -83,6 +59,10 @@ public class CharacterMovement : MonoBehaviour
 		return Dircection;
 	}
 
+	public void LookInWalkingDirection()
+	{
+		LookInDirection(GetWalkingDirection());
+	}
 
 	public void LookInDirection(Vector3 direction)
 	{
