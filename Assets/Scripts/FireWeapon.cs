@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponName
+public enum WeaponType
 {
 	Gun,
 	Shotgun,
@@ -26,16 +26,6 @@ public class FireWeapon : MonoBehaviour
 	public BulletEmitter bulletEmitter;
 
 	public int CurrentLoadOut { get => currentLoadOut; set => currentLoadOut = value; }
-
-	//public int GetDamage()
-	//{
-	//	return Damage;
-	//}
-
-	public void Update()
-	{
-	
-	}
 
 	public void Reload(int ammo)
 	{
@@ -77,7 +67,6 @@ public class FireWeapon : MonoBehaviour
 		if(!OnCoolDown && CheckAmmoCount())
 		{
 			OnCoolDown = true;
-			//	Shoot(targetPoint);
 			bulletEmitter.Shoot(weaponData);
 			CurrentLoadOut -= 1;
 			StartCoroutine(ShootCoolDown());
@@ -85,13 +74,7 @@ public class FireWeapon : MonoBehaviour
 
 	
 	}
-
-	public virtual void Shoot()
-	{
-		//CurrentLoadOut -= 1;
-		//Instantiate(Bullet, Canon.position + (BulletOffset), Quaternion.LookRotation(new Vector3(DirectionToSHoot.x + targetPoint.x, DirectionToSHoot.y, DirectionToSHoot.z + targetPoint.z)));
-		//transform.TransformDirection()
-	}
+	
 
 	IEnumerator Reloading(int ammo)
 	{
