@@ -20,10 +20,7 @@ public class Zombie : MonoBehaviour
 
 	public void SetTarget()
 	{
-		Vector3 VectorTargetOffset = transform.position - target.position;
-		VectorTargetOffset.Normalize();
-		VectorTargetOffset *= TargetOffset;
-		agent.SetDestination(target.position + VectorTargetOffset);
+		agent.SetDestination(target.position);
 
 		animator.SetFloat("Speed", agent.velocity.magnitude);
 	}
@@ -71,16 +68,15 @@ public class Zombie : MonoBehaviour
 	
 	}
 
-
-	private void OnCollisionEnter(Collision collision)
+	private void OnTriggerEnter(Collider other)
 	{
-		if(collision.gameObject.tag == ("Bullet"))
+		if (other.gameObject.tag == ("Bullet"))
 		{
-			Hit(collision.gameObject.GetComponent<Bullet>().GetDamage());
-			Destroy(collision.gameObject);
+			Hit(other.gameObject.GetComponent<Bullet>().GetDamage());
+			Destroy(other.gameObject);
 		}
-	
 	}
+
 
 	/*
 	 1- Faire un gun, et un mitraillette
