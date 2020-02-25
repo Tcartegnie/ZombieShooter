@@ -9,66 +9,62 @@ public class CharacterShoot : MonoBehaviour
 	public int ShotgunAmmo;
 	public int RifleAmmo;
 
-	Dictionary<WeaponName, int> BulletDictionary = new Dictionary<WeaponName, int>();
+	Dictionary<WeaponType, int> BulletDictionary = new Dictionary<WeaponType, int>();
 
 	public Camera cam;
 	[SerializeField]
 	Animator animator;
 
-	public List<FireWeapon> Weapons;
-
 	public FireWeapon CurrentWeapon;
 	[SerializeField]
-	public bool WeaponEquiped = false;
+	public bool IsWeaponEquiped = false;
 	[SerializeField]
 	float CurrentHoldWeaponCoolDown = 0.0f;
 	[SerializeField]
 	float HoldWeaponCoolDown;
 	// Update is called once per frame
-	WeaponName CurrentWeaponName;
+	WeaponType CurrentWeaponName;
 
 	public FireWeapon GetCurrentWeapon()
 	{
 		return CurrentWeapon;
 	}
 
-	private void Start()
+	public void ChangeWeapon(WeaponData data)
 	{
- 		BulletDictionary.Add(WeaponName.Gun,GunAmmo);
-		BulletDictionary.Add(WeaponName.Shotgun,ShotgunAmmo);
-		CurrentWeaponName = CurrentWeapon.weaponData.weaponName;
+		CurrentWeapon.weaponData = data;
 	}
 
-	public int GetAmmo(WeaponName WeaponName)
+	public void ReloadCurrentWeapon()
+	{
+		CurrentWeapon.Reload(BulletDictionary[CurrentWeaponName]);
+	}
+
+	public void GiveAmmo()
+	{
+		SetAmmo(WeaponType.Shotgun, 99999);
+		SetAmmo(WeaponType.Gun, 99999);
+		SetAmmo(WeaponType.Rifle, 99999);
+	}
+
+	private void Start()
+	{
+ 		BulletDictionary.Add(WeaponType.Gun,GunAmmo);
+		BulletDictionary.Add(WeaponType.Shotgun,ShotgunAmmo);
+		CurrentWeaponName = CurrentWeapon.weaponData.WeaponType;
+	}
+
+	public int GetAmmo(WeaponType WeaponName)
 	{
 		return BulletDictionary[CurrentWeaponName];
 	}
 
-	public void SetAmmo(WeaponName WeaponName, int AmmoValue)
+	public void SetAmmo(WeaponType WeaponName, int AmmoValue)
 	{
 		BulletDictionary[CurrentWeaponName] = AmmoValue;
 	}
 
-	void Update()
-    {
-		CheckCoolDownWeaponHolding();
 
-		if (Input.GetMouseButtonUp(0))
-		{
-			Shoot();
-		}
-
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			CurrentWeapon.Reload(BulletDictionary[CurrentWeaponName]);
-		}
-
-		if (Input.GetKeyDown(KeyCode.A))
-		{
-			SetAmmo(CurrentWeaponName, 99999);
-		}
-
-	}
 	public void CheckCoolDownWeaponHolding()
 	{
 		if(CurrentHoldWeaponCoolDown > 0)
@@ -77,16 +73,16 @@ public class CharacterShoot : MonoBehaviour
 		}
 		else
 		{
-			WeaponEquiped = false;
-			animator.SetBool("WeaponEquiped", WeaponEquiped);
+			IsWeaponEquiped = false;
+			animator.SetBool("WeaponEquiped", IsWeaponEquiped);
 		}
 
 	}
 
-	void Shoot()
+	public void Shoot()
 	{
 
-		WeaponEquiped = true;
+		IsWeaponEquiped = true;
 		CurrentHoldWeaponCoolDown = HoldWeaponCoolDown;
 
 
@@ -108,7 +104,7 @@ public class CharacterShoot : MonoBehaviour
 		}
 		animator.SetTrigger("Shoot");
 
-		animator.SetBool("WeaponEquiped", WeaponEquiped);
+		animator.SetBool("WeaponEquiped", IsWeaponEquiped);
 
 
 	}
