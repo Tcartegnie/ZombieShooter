@@ -18,9 +18,9 @@ public class BulletEmitter : MonoBehaviour
 		StartCoroutine(ShootBullets(data));
 	}
 
-	public Vector3 GetSpreadDirection(WeaponData data)
+	public Vector3 GetSpreadDirection(Vector3 Spread)
 	{
-		Vector3 RandomSpread = new Vector3(Random.Range(data.BulletSpread.x, -data.BulletSpread.x), Random.Range(data.BulletSpread.y, -data.BulletSpread.y), 0);
+		Vector3 RandomSpread = new Vector3(Random.Range(Spread.x, -Spread.x), Random.Range(Spread.y, -Spread.y), 0);
 		return Canon.forward + RandomSpread;
 	}
 
@@ -30,7 +30,7 @@ public class BulletEmitter : MonoBehaviour
 		{
 			GameObject currentBullet = new GameObject();
 			yield return new WaitForSeconds(data.CoolDownBetweenBullet);
-			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data)));
+			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data.Spread)));
 			
 		}
 

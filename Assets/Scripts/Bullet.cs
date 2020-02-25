@@ -12,13 +12,9 @@ public class Bullet : MonoBehaviour
     void Start()
     {
 		rb = GetComponent<Rigidbody>();
+		rb.AddForce(transform.forward * Speed);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-		rb.velocity = (transform.forward * Speed);
-    }
 
 	public int GetDamage()
 	{
