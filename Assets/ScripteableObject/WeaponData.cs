@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon", menuName = "ScriptableObjects/Weapon", order = 1)]
 public class WeaponData : ScriptableObject
 {
-	public WeaponName weaponName;
+	public string WeaponName;
+	public WeaponType WeaponType;
 	public int Damage;
 	public float CoolDown;
 	public int LoadoutMax;
@@ -14,6 +15,7 @@ public class WeaponData : ScriptableObject
 	public int BulletPerShoot;
 	public float CoolDownBetweenBullet;
 	public int MaxAmmo;
-	public Vector2 BulletSpread;
+	public Vector2 Spread;
 	public GameObject Bullet;
+	public Sprite WeaponPicture;
 }
