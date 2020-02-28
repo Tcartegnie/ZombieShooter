@@ -8,8 +8,6 @@ public class CharacterMovement : MonoBehaviour
 	public float Speed;
 	[SerializeField]
 	Transform camera;
-	[SerializeField]
-	Rigidbody rb;
 	public bool InMove;
 	[SerializeField]
 	Animator animator;
@@ -17,38 +15,49 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField]
 	CharacterShoot charactershoot;
 	public int PV;
+	public float DirectionToDash;
 	
 
 	public void StopMovement()
 	{
-		rb.velocity = Vector3.zero;
 		InMove = false;
 	}
 
 	public void Walk(float ForwardInput, float LateralInput)
 	{
-		MoveForward(ForwardInput);
-		LateralMove(LateralInput);
+		Vector3 Direction = MoveForward(ForwardInput) + LateralMove(LateralInput);
+		Direction.Normalize();
+		transform.position += Direction * (Time.deltaTime * Speed);
+
+
+
+
+
+
 		InMove = true;
 
 		Vector2 Inputs = new Vector2(ForwardInput, LateralInput);
 		
 		animator.SetBool("InMove", InMove);
 		animator.SetFloat("Speed", Inputs.magnitude);
-		
+
 	}
 
-	public void MoveForward(float Direction)
+	public Vector3 MoveForward(float InputValue)
 	{
 		Vector3 CameraOFfset = Vector3.Cross(camera.right,Vector3.up);
 
+		Vector3 Direction = (CameraOFfset * InputValue);
 
-		transform.position += CameraOFfset * ((Time.deltaTime * Speed) * Direction);
+		return Direction;
+		
 	}
 
-	public void LateralMove(float Direction)
+	public Vector3 LateralMove(float InputValue)
 	{
-		transform.position += camera.right * ((Time.deltaTime * Speed) * Direction);
+		Vector3 Direction = (camera.right * InputValue);
+
+		return Direction;
 	}
 
 	public Vector3 GetWalkingDirection()
@@ -71,7 +80,7 @@ public class CharacterMovement : MonoBehaviour
 
 	public void Dash()
 	{
-		rb.AddForce(transform.forward * DashPower);
+		Vector3 PointToDash = GetWalkingDirection() * DirectionToDash;
 	}
 
 	public void Hit(int damage)
