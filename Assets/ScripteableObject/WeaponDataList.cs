@@ -22,4 +22,15 @@ public class WeaponDataList : ScriptableObject
 	{
 		return WeaponsData.Find(weapons => name == weapons.WeaponName);
 	}
+
+	public List<WeaponData> GetBuyedWeapon()
+	{
+		return WeaponsData.FindAll(weapons => true == weapons.Buyed);
+	}
+
+	public void SetWeaponAseBuyed(string name)
+	{
+		WeaponData weapon = GetWeaponByName(name);
+		weapon.SetWeaponAsBuyed();
+	}
 }

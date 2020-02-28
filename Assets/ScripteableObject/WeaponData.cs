@@ -18,4 +18,11 @@ public class WeaponData : ScriptableObject
 	public Vector2 Spread;
 	public GameObject Bullet;
 	public Sprite WeaponPicture;
+	public bool Buyed;
+
+	public void SetWeaponAsBuyed()
+	{
+		Buyed = true;
+	}
+	
 }
