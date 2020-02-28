@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
 	public CharacterMovement PlayerMovement;
 	public CharacterShoot PlayerShoot;
 	public CharacterInventory CharacterInventory;
+	public WeaponShop Shop;
 	float ForwardInput;
 	float LateralInput;
 	// Update is called once per frame
@@ -69,6 +70,11 @@ public class PlayerInput : MonoBehaviour
 		if(Input.GetKeyUp(KeyCode.I))
 		{
 			CharacterInventory.TurnOnOffInventory();
+		}
+
+		if (Input.GetKeyUp(KeyCode.J))
+		{
+			Shop.TurnOnSHop();
 		}
 	}
 
