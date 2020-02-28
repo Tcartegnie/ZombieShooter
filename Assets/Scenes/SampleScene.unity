@@ -237,7 +237,7 @@ MonoBehaviour:
   InventoryUI: {fileID: 1524479985}
   weaponDataBase: {fileID: 1443092288}
   characterShoot: {fileID: 109793686}
-  slots: {fileID: 0}
+  slots: {fileID: 143273286}
 --- !u!4 &109793685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6820192824347731214, guid: b40ec1e0bc791e144ad0525ee4f47550,
@@ -254,6 +254,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b9588af961df8447aefb0b5ce0b2498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &143273286 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3534602419911200451, guid: e4689c69408a98442b498f0ddc471d7c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3534602418609048685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461349ea6c6479846aa0fc78a429adf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &158706023 stripped
@@ -1037,7 +1049,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 741487287}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1015589472}
+        m_MethodName: OnButtonSellAnnulationPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &741487287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1155,7 +1178,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 864637893}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1015589472}
+        m_MethodName: OnButtonSellPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &864637893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,7 +1377,22 @@ MonoBehaviour:
   PictureRect: {fileID: 4379950739167008283, guid: f1cae99545ff148498689bbf93386f91,
     type: 3}
   InventoryContent: {fileID: 315790809}
-  InventorySlots: {fileID: 0}
+  InventorySlots: {fileID: 1332181996}
+--- !u!114 &1015589472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015589470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53e1f906772ff9a498f3276d1ec010fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySlots: {fileID: 1332181996}
+  menuItem: {fileID: 1015589471}
+  weaponDataBase: {fileID: 1443092288}
 --- !u!1 &1080522207
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,6 +3228,10 @@ PrefabInstance:
       propertyPath: CharacterInventoryUI
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 84768619, guid: b40ec1e0bc791e144ad0525ee4f47550, type: 3}
+      propertyPath: Shop
+      value: 
+      objectReference: {fileID: 1015589472}
     - target: {fileID: 6820192824347731213, guid: b40ec1e0bc791e144ad0525ee4f47550,
         type: 3}
       propertyPath: camera
