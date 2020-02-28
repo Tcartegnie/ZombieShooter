@@ -16,6 +16,18 @@ public class WeaponShop : MonoBehaviour
 		menuItem.DisplayItemList();
 	}
 
+	public void TurnOnOffShop()
+	{
+		if(gameObject.activeInHierarchy)
+		{
+			TurnOffShop();
+		}
+		else
+		{
+			TurnOnSHop();
+		}
+	}
+
 	public void OnButtonSellPressed()
 	{
 		weaponDataBase.GetWeaponByName(inventorySlots.GetWeaponName(0)).SetWeaponAsBuyed();

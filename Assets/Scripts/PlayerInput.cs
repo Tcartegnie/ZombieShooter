@@ -74,8 +74,9 @@ public class PlayerInput : MonoBehaviour
 
 		if (Input.GetKeyUp(KeyCode.J))
 		{
-			Shop.TurnOnSHop();
+			Shop.TurnOnOffShop();
 		}
+		
 	}
 
 }
