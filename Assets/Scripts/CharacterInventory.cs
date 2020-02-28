@@ -13,11 +13,6 @@ public class CharacterInventory : MonoBehaviour
 	List<WeaponData> Weapons;
 
 
-	public void Start()
-	{
-		Weapons = weaponDataBase.GetWeaponsList();
-	}
-
 	public void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -38,22 +33,6 @@ public class CharacterInventory : MonoBehaviour
 		}
 	}
 
-	public void AddWeapon(WeaponData weapondata)
-	{
-		Weapons.Add(weapondata);
-	}
-
-	public List<WeaponData> GetWeapons()
-	{
-		return Weapons;
-	}
-
-	public WeaponData GetWeaponByName(string weaponName)
-	{
-		return Weapons.Find(weapon => weaponName == weapon.WeaponName);//Must refacto
-	}
-
-
 	public void EquipeWeapon(int SlotID)
 	{
 		if (slots.GetWeaponName(SlotID) != null)
@@ -67,6 +46,7 @@ public class CharacterInventory : MonoBehaviour
 
 	public void TurnOnOffInventory()
 	{
+		Weapons = weaponDataBase.GetAllBuyedWeapon();
 		InventoryUI.SetItemList(Weapons);
 		InventoryUI.TurnOnOffInventory();
 	}
