@@ -14,7 +14,12 @@ public class WeaponDataBase : MonoBehaviour
 	}
 
 	public WeaponData GetWeaponByName(string name)
-	{
+	{ 
 		return weaponDataList.GetWeaponByName(name);
+	}
+
+	public List<WeaponData> GetAllBuyedWeapon()
+	{
+		return weaponDataList.GetBuyedWeapon();
 	}
 }
