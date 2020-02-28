@@ -177,8 +177,9 @@ MonoBehaviour:
   animator: {fileID: 8455092900080418817}
   DashPower: 1000
   charactershoot: {fileID: -8440615490546384797}
-  PV: 0
-  DirectionToDash: 0
+  PV: 100
+  DirectionToDash: 2
+  RotationSpeed: 25
 --- !u!114 &-8440615490546384797
 MonoBehaviour:
   m_ObjectHideFlags: 0
