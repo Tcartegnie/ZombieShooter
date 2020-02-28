@@ -34,7 +34,6 @@ public class DisplayMenuItem : MonoBehaviour
 		else
 		{
 			gameObject.SetActive(false);
-			ClearDisplay();
 		}
 	
 	}
@@ -55,12 +54,13 @@ public class DisplayMenuItem : MonoBehaviour
 
 	public void DisplayItemList()
 	{
+		ClearDisplay();
 		foreach (WeaponData weapon in ItemToDisplay)
 		{
 			GameObject rect = new GameObject();
 			rect = Instantiate(PictureRect, InventoryContent);
 			UIitemInventory itemrect = rect.GetComponent<UIitemInventory>();
-			itemrect.SetName(weapon.name);
+			itemrect.SetName(weapon.WeaponName);
 			itemrect.SetPicture(weapon.WeaponPicture);
 			itemrect.slots = InventorySlots;
 			//	itemrect.inventory = this;
