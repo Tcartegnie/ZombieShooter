@@ -7,7 +7,7 @@ public class UIitemInventory : ItemRect, IBeginDragHandler,IDragHandler, IEndDra
 	public UIInventorySlots slots;
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		slots.SelectecWeapon(currentweaponData.WeaponName);
+		slots.SelectecWeapon(GetItemName());
 	}
 
 	public void OnDrag(PointerEventData eventData)
