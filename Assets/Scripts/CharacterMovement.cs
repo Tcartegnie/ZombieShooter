@@ -33,15 +33,7 @@ public class CharacterMovement : MonoBehaviour
 	public void Walk(float ForwardInput, float LateralInput)
 	{
 		direction = GetForwardDirection(ForwardInput) + GetLateralDirection(LateralInput);
-
-		direction.Normalize();
-
-		float speed = Speed;
-
-		//rb.MovePosition(transform.position + (Direction * speed));
-		GoToDirection(direction, speed);
-
-
+		GoToDirection();
 		InMove = true;
 
 		Vector2 Inputs = new Vector2(ForwardInput, LateralInput);
@@ -51,9 +43,9 @@ public class CharacterMovement : MonoBehaviour
 
 	}
 
-	public void GoToDirection(Vector3 direction, float speed)
+	public void GoToDirection()
 	{
-		characterController.SimpleMove(direction * speed);
+		characterController.SimpleMove(direction.normalized * Speed);
 	}
 
 	public Vector3 GetForwardDirection(float InputValue)
@@ -106,7 +98,7 @@ public class CharacterMovement : MonoBehaviour
 
 	public void CallDash()
 	{
-		StartCoroutine(Dashmovement.Dash(direction.normalized));
+		Dashmovement.Dash(direction.normalized);
 	}
 
 }
