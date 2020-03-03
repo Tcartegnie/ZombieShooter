@@ -834,7 +834,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324248, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.113199875
+      value: -3.63
       objectReference: {fileID: 0}
     - target: {fileID: 1677616587057324248, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
@@ -894,7 +894,12 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235589651961687741, guid: 4a5e968f776ba214fa88c60c6f18f292,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925881586, guid: 4a5e968f776ba214fa88c60c6f18f292, type: 3}
@@ -1093,7 +1098,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324248, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.113199875
+      value: 3.31
       objectReference: {fileID: 0}
     - target: {fileID: 1677616587057324248, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
@@ -1153,7 +1158,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925881586, guid: 4a5e968f776ba214fa88c60c6f18f292, type: 3}
@@ -1408,7 +1413,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925881586, guid: 4a5e968f776ba214fa88c60c6f18f292, type: 3}
@@ -2535,6 +2540,17 @@ PrefabInstance:
       propertyPath: DashDistance
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 246542674499774445, guid: b40ec1e0bc791e144ad0525ee4f47550,
+        type: 3}
+      propertyPath: weaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: b760b422176e8a74c86f61341a1ba65d,
+        type: 2}
+    - target: {fileID: 4107501358257951474, guid: b40ec1e0bc791e144ad0525ee4f47550,
+        type: 3}
+      propertyPath: characterShoot
+      value: 
+      objectReference: {fileID: 109793686}
     - target: {fileID: 4573096805435257929, guid: b40ec1e0bc791e144ad0525ee4f47550,
         type: 3}
       propertyPath: InventoryUI
