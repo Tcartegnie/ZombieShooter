@@ -228,18 +228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15bbfbab7e61b104fa91999f86205d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &84768624 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 84768624, guid: b40ec1e0bc791e144ad0525ee4f47550,
-    type: 3}
-  m_PrefabInstance: {fileID: 6820192825466486955}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dbf09b44b9c4ad4c93ff5772ce6b41b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &109793685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6820192824347731214, guid: b40ec1e0bc791e144ad0525ee4f47550,
@@ -906,7 +894,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925881586, guid: 4a5e968f776ba214fa88c60c6f18f292, type: 3}
@@ -1165,7 +1153,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925881586, guid: 4a5e968f776ba214fa88c60c6f18f292, type: 3}
@@ -1420,7 +1408,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925881586, guid: 4a5e968f776ba214fa88c60c6f18f292, type: 3}
@@ -2539,6 +2527,14 @@ PrefabInstance:
       propertyPath: Shop
       value: 
       objectReference: {fileID: 1015589472}
+    - target: {fileID: 84768624, guid: b40ec1e0bc791e144ad0525ee4f47550, type: 3}
+      propertyPath: DashPower
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 84768624, guid: b40ec1e0bc791e144ad0525ee4f47550, type: 3}
+      propertyPath: DashDistance
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4573096805435257929, guid: b40ec1e0bc791e144ad0525ee4f47550,
         type: 3}
       propertyPath: InventoryUI
@@ -2561,9 +2557,9 @@ PrefabInstance:
       objectReference: {fileID: 877831032}
     - target: {fileID: 6820192824347731213, guid: b40ec1e0bc791e144ad0525ee4f47550,
         type: 3}
-      propertyPath: Dashmovement
-      value: 
-      objectReference: {fileID: 84768624}
+      propertyPath: Speed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6820192824347731214, guid: b40ec1e0bc791e144ad0525ee4f47550,
         type: 3}
       propertyPath: m_LocalPosition.x
