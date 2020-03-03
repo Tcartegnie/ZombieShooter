@@ -115,13 +115,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6820192824347731214}
-  - component: {fileID: 6820192824347731203}
   - component: {fileID: 6820192824347731213}
   - component: {fileID: -8440615490546384797}
   - component: {fileID: 246542674499774445}
   - component: {fileID: 4107501358257951474}
   - component: {fileID: 84768619}
   - component: {fileID: 4573096805435257929}
+  - component: {fileID: 84768626}
+  - component: {fileID: 84768624}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -146,19 +147,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6820192824347731203
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6820192824347731215}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 3.52, z: 1}
-  m_Center: {x: 0, y: 1.68, z: 0}
 --- !u!114 &6820192824347731213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,15 +159,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f996125c6e08acb40bf22b06cc5411d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 8
   camera: {fileID: 0}
   InMove: 0
-  animator: {fileID: 8455092900080418817}
-  DashPower: 1000
+  animator: {fileID: 0}
   charactershoot: {fileID: -8440615490546384797}
   PV: 100
-  DirectionToDash: 2
   RotationSpeed: 25
+  characterController: {fileID: 84768626}
+  Dashmovement: {fileID: 0}
 --- !u!114 &-8440615490546384797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,11 +184,12 @@ MonoBehaviour:
   ShotgunAmmo: 100
   RifleAmmo: 100
   cam: {fileID: 0}
-  animator: {fileID: 8455092900080418817}
+  animator: {fileID: 0}
   CurrentWeapon: {fileID: 246542674499774445}
   IsWeaponEquiped: 0
   CurrentHoldWeaponCoolDown: 0
   HoldWeaponCoolDown: 3
+  characterController: {fileID: 84768626}
 --- !u!114 &246542674499774445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +249,40 @@ MonoBehaviour:
   weaponDataBase: {fileID: 0}
   characterShoot: {fileID: -8440615490546384797}
   slots: {fileID: 0}
+--- !u!143 &84768626
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820192824347731215}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 3.74
+  m_Radius: 0.83
+  m_SlopeLimit: 90
+  m_StepOffset: 1
+  m_SkinWidth: 0.083
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 1.87, z: 0}
+--- !u!114 &84768624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820192824347731215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbf09b44b9c4ad4c93ff5772ce6b41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 84768626}
+  DashDuration: 0.2
+  DashPower: 10
+  DashCooldown: 0.3
 --- !u!1001 &1806312030302634699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -271,6 +294,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167737660276081172, guid: 4a81b1a5ba59df24792b6933550924bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5167737660276081173, guid: 4a81b1a5ba59df24792b6933550924bb,
         type: 3}
@@ -716,17 +744,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -6057140222963153312, guid: 96974b44fc83b274cbbe07703dfd31de, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 96974b44fc83b274cbbe07703dfd31de, type: 3}
 --- !u!4 &2007626815747403131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 96974b44fc83b274cbbe07703dfd31de,
-    type: 3}
-  m_PrefabInstance: {fileID: 6820192824763713121}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8455092900080418817 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 96974b44fc83b274cbbe07703dfd31de,
     type: 3}
   m_PrefabInstance: {fileID: 6820192824763713121}
   m_PrefabAsset: {fileID: 0}
