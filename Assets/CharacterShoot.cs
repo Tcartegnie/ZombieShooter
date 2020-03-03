@@ -25,6 +25,8 @@ public class CharacterShoot : MonoBehaviour
 	// Update is called once per frame
 	WeaponType CurrentWeaponName;
 
+	public CharacterController characterController;
+
 	public FireWeapon GetCurrentWeapon()
 	{
 		return CurrentWeapon;
@@ -49,9 +51,11 @@ public class CharacterShoot : MonoBehaviour
 
 	private void Start()
 	{
+		characterController =GetComponent<CharacterController>();
  		BulletDictionary.Add(WeaponType.Gun,GunAmmo);
 		BulletDictionary.Add(WeaponType.Shotgun,ShotgunAmmo);
 		CurrentWeaponName = CurrentWeapon.weaponData.WeaponType;
+		ReloadCurrentWeapon();
 	}
 
 	public int GetAmmo(WeaponType WeaponName)
@@ -74,9 +78,18 @@ public class CharacterShoot : MonoBehaviour
 		else
 		{
 			IsWeaponEquiped = false;
-			animator.SetBool("WeaponEquiped", IsWeaponEquiped);
+			//animator.SetBool("WeaponEquiped", IsWeaponEquiped);
 		}
 
+	}
+
+	public Ray GetHitOnClick()
+	{
+		Vector3 ScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 100.0f);
+
+		Ray ray = cam.ScreenPointToRay(ScreenPos);
+
+		return ray;
 	}
 
 	public void Shoot()
@@ -86,12 +99,9 @@ public class CharacterShoot : MonoBehaviour
 		CurrentHoldWeaponCoolDown = HoldWeaponCoolDown;
 
 
-		Vector3 ScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 100.0f);
-
-		Ray ImpactPoint = cam.ScreenPointToRay(ScreenPos);
+		Ray ImpactPoint = GetHitOnClick();
 
 		RaycastHit hit = new RaycastHit();
-
 
 		if (Physics.Raycast(ImpactPoint, out hit))
 		{
@@ -102,11 +112,17 @@ public class CharacterShoot : MonoBehaviour
 			CurrentWeapon.CallShoot(hit.point);
 	
 		}
-		animator.SetTrigger("Shoot");
+//		animator.SetTrigger("Shoot");
 
-		animator.SetBool("WeaponEquiped", IsWeaponEquiped);
+//		animator.SetBool("WeaponEquiped", IsWeaponEquiped);
 
+		Recoil();
+	}
 
+	public void Recoil()
+	{
+		Debug.Log("Test");
+		characterController.Move(-transform.forward * GetCurrentWeapon().weaponData.recoil);
 	}
 
 	public void TurnInShootDirection(Vector3 Position)
