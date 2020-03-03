@@ -60,7 +60,7 @@ public class PlayerInput : MonoBehaviour
 
 		if (Input.GetMouseButtonUp(1))
 		{
-			PlayerMovement.Dash();
+			PlayerMovement.CallDash();
 		}
 
 	}
@@ -78,5 +78,7 @@ public class PlayerInput : MonoBehaviour
 		}
 		
 	}
+
+
 
 }
