@@ -11,46 +11,52 @@ public class CharacterMovement : MonoBehaviour
 	public bool InMove;
 	[SerializeField]
 	Animator animator;
-	public float DashDuration;
-	public float Dashdistance;
-	public float DashPower;
+
 	[SerializeField]
 	CharacterShoot charactershoot;
 	public int PV;
 	public float RotationSpeed;
+	Rigidbody rb;
+	public CharacterController characterController;
+	Vector3 direction;
+	public DashMovement Dashmovement;
 	
 
 	public void StopMovement()
 	{
+		rb = GetComponent<Rigidbody>();
 		InMove = false;
 	}
 
+
+
 	public void Walk(float ForwardInput, float LateralInput)
 	{
-		Vector3 Direction = MoveForward(ForwardInput) + LateralMove(LateralInput);
+		direction = GetForwardDirection(ForwardInput) + GetLateralDirection(LateralInput);
 
-		Direction.Normalize();
+		direction.Normalize();
 
+		float speed = Speed;
 
-
-		GoToDirection(Direction);
+		//rb.MovePosition(transform.position + (Direction * speed));
+		GoToDirection(direction, speed);
 
 
 		InMove = true;
 
 		Vector2 Inputs = new Vector2(ForwardInput, LateralInput);
 		
-		animator.SetBool("InMove", InMove);
-		animator.SetFloat("Speed", Inputs.magnitude);
+	//	animator.SetBool("InMove", InMove);
+	//s	animator.SetFloat("Speed", Inputs.magnitude);
 
 	}
 
-	public void GoToDirection(Vector3 direction)
+	public void GoToDirection(Vector3 direction, float speed)
 	{
-		transform.position += direction * (Time.deltaTime * Speed);
+		characterController.SimpleMove(direction * speed);
 	}
 
-	public Vector3 MoveForward(float InputValue)
+	public Vector3 GetForwardDirection(float InputValue)
 	{
 		Vector3 CameraOFfset = Vector3.Cross(camera.right,Vector3.up);
 
@@ -60,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
 		
 	}
 
-	public Vector3 LateralMove(float InputValue)
+	public Vector3 GetLateralDirection(float InputValue)
 	{
 		Vector3 Direction = (camera.right * InputValue);
 
@@ -69,10 +75,7 @@ public class CharacterMovement : MonoBehaviour
 
 	public Vector3 GetWalkingDirection()
 	{
-		Vector3 ForwardDirection = (Vector3.Cross(camera.right, Vector3.up)) * Input.GetAxis("Vertical");
-		Vector3 LeftDirection = camera.right * Input.GetAxis("Horizontal");
-		Vector3 Dircection = ForwardDirection + LeftDirection;
-		return Dircection;
+		return direction;
 	}
 
 	public void LookInWalkingDirection()
@@ -86,12 +89,6 @@ public class CharacterMovement : MonoBehaviour
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
 	}
 
-	public void Dash()
-	{
-		Vector3 PointToDash = transform.forward * Dashdistance;
-
-		StartCoroutine(Dash(transform.position + PointToDash));
-	}
 
 	public void Hit(int damage)
 	{
@@ -107,14 +104,9 @@ public class CharacterMovement : MonoBehaviour
 		}
 	}
 
-	public IEnumerator Dash(Vector3 PointToDash)
+	public void CallDash()
 	{
-		Vector3 StartPosition = transform.position;
-		for(float i = 0; i < 1; i+= (Time.deltaTime / DashDuration))
-		{
-			transform.position = (Vector3.Lerp(StartPosition, PointToDash,i));
-			yield return null;
-		}
+		StartCoroutine(Dashmovement.Dash(direction.normalized));
 	}
 
 }
