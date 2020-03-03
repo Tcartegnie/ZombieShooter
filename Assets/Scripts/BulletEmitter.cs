@@ -11,11 +11,16 @@ public class BulletEmitter : MonoBehaviour
 
 
 	public Transform Canon;
-
+	public CharacterShoot characterShoot;
 
 	public void Shoot(WeaponData data)
 	{
 		StartCoroutine(ShootBullets(data));
+	}
+
+	public void SetCanonScope(Vector3 direction)
+	{
+		Canon.rotation = Quaternion.LookRotation(direction);
 	}
 
 	public Vector3 GetSpreadDirection(Vector3 Spread)
@@ -30,6 +35,7 @@ public class BulletEmitter : MonoBehaviour
 		{
 			GameObject currentBullet = new GameObject();
 			yield return new WaitForSeconds(data.CoolDownBetweenBullet);
+			SetCanonScope(characterShoot.GetShootDirection().normalized);
 			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data.Spread)));
 			
 		}
