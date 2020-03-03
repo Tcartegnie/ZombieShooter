@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class DashMovement : MonoBehaviour
 {
-	public DashMovement dash;
 	public CharacterController characterController;
-	public float DashDuration;
-	public float DashPower;
+	public float DashDistance;
 	public float DashCooldown;
 	bool DashOnCoolDown;
 
-	public IEnumerator Dash(Vector3 Direction)
+	public void Dash(Vector3 Direction)
 	{
+		Debug.Log(Direction);
 		if (!DashOnCoolDown)
 		{
-			for (float i = 0; i < 1; i += Time.deltaTime / DashDuration)
-			{
-				characterController.SimpleMove(Direction * DashPower);
-				yield return null;
-			}
+			Debug.Log(Direction * DashDistance);
+			//transform.position += Direction * DashDistance; 
+			characterController.SimpleMove(Direction * DashDistance);
 			StartCoroutine(DashCoolDown());
 		}
 	}
