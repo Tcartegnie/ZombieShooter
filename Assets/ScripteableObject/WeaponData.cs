@@ -19,6 +19,7 @@ public class WeaponData : ScriptableObject
 	public GameObject Bullet;
 	public Sprite WeaponPicture;
 	public bool Buyed;
+	public float recoil;
 
 	public void SetWeaponAsBuyed()
 	{
