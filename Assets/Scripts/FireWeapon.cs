@@ -62,7 +62,7 @@ public class FireWeapon : MonoBehaviour
 		}
 	}
 
-	public void CallShoot(Vector3 targetPoint)
+	public void CallShoot()
 	{
 		if(!OnCoolDown && CheckAmmoCount())
 		{
