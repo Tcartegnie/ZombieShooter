@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f996125c6e08acb40bf22b06cc5411d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 8
+  Speed: 10
   camera: {fileID: 0}
   InMove: 0
   animator: {fileID: 0}
@@ -167,7 +167,7 @@ MonoBehaviour:
   PV: 100
   RotationSpeed: 25
   characterController: {fileID: 84768626}
-  Dashmovement: {fileID: 0}
+  Dashmovement: {fileID: 84768624}
 --- !u!114 &-8440615490546384797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,9 +279,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbf09b44b9c4ad4c93ff5772ce6b41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dash: {fileID: 0}
   characterController: {fileID: 84768626}
-  DashDuration: 0.2
-  DashPower: 10
+  DashDuration: 0.1
+  DashPower: 20
   DashCooldown: 0.3
 --- !u!1001 &1806312030302634699
 PrefabInstance:
