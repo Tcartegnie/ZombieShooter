@@ -43,7 +43,9 @@ public class Zombie : MonoBehaviour
 	{
 		if (Vector3.Distance(transform.position, target.position) < 2)
 		{
-			target.GetComponent<CharacterMovement>().Hit(2);
+			Vector3 test = transform.position - target.position;
+			float dotproduct = Vector3.Dot(test,target.right);
+			target.GetComponent<CharacterMovement>().Hit(2,dotproduct);
 		}
 	}
 	

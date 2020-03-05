@@ -41,6 +41,7 @@ public class CharacterShoot : MonoBehaviour
 	public void ReloadCurrentWeapon()
 	{
 		CurrentWeapon.Reload(BulletDictionary[CurrentWeaponName]);
+		animator.SetTrigger("Reload");
 	}
 
 	public void GiveAmmo()

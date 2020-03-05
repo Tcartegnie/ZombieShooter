@@ -80,10 +80,12 @@ public class CharacterMovement : MonoBehaviour
 	}
 
 
-	public void Hit(int damage)
+	public void Hit(int damage,float hitdirection)
 	{
 		PV -= damage;
 		CheckPV();
+		animator.SetFloat("HitDirection",hitdirection);
+		animator.SetTrigger("OnHit");
 	}
 
 	public void CheckPV()
