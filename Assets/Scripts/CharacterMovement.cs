@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
 	public float Speed;
 	[SerializeField]
 	Transform camera;
-	public bool InMove;
+
 	[SerializeField]
 	Animator animator;
 
@@ -22,25 +22,23 @@ public class CharacterMovement : MonoBehaviour
 	public DashMovement Dashmovement;
 	
 
-	public void StopMovement()
-	{
-		rb = GetComponent<Rigidbody>();
-		InMove = false;
-	}
+
 
 
 
 	public void Walk(float ForwardInput, float LateralInput)
 	{
-		direction = GetForwardDirection(ForwardInput) + GetLateralDirection(LateralInput);
-		GoToDirection();
-		InMove = true;
-
+		if (ForwardInput != 0 || LateralInput != 0)
+		{
+			direction = GetForwardDirection(ForwardInput) + GetLateralDirection(LateralInput);
+			GoToDirection();
+		}
+		PlayRunAnimation(ForwardInput,LateralInput);
+	}
+	public void PlayRunAnimation(float ForwardInput, float LateralInput)
+	{
 		Vector2 Inputs = new Vector2(ForwardInput, LateralInput);
-		
-	//	animator.SetBool("InMove", InMove);
-	//s	animator.SetFloat("Speed", Inputs.magnitude);
-
+		animator.SetFloat("Speed", Inputs.magnitude);
 	}
 
 	public void GoToDirection()
