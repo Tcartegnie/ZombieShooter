@@ -44,18 +44,11 @@ public class PlayerInput : MonoBehaviour
 		ForwardInput = Input.GetAxis("Vertical");
 		LateralInput = Input.GetAxis("Horizontal");
 
-		if(ForwardInput != 0 || LateralInput != 0)
-		{
-			PlayerMovement.Walk(ForwardInput,LateralInput);
+		PlayerMovement.Walk(ForwardInput,LateralInput);
 	
-			if (!PlayerShoot.IsWeaponEquiped)
-			{
-				PlayerMovement.LookInWalkingDirection();
-			}
-		}
-		else
+		if (!PlayerShoot.IsWeaponEquiped)
 		{
-			PlayerMovement.StopMovement();
+			PlayerMovement.LookInWalkingDirection();
 		}
 
 		if (Input.GetMouseButtonUp(1))
