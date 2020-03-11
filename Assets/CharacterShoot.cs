@@ -11,6 +11,8 @@ public class CharacterShoot : MonoBehaviour
 
 	Dictionary<WeaponType, int> BulletDictionary = new Dictionary<WeaponType, int>();
 
+	public AudioSource Sound;
+
 	public Camera cam;
 	[SerializeField]
 	Animator animator;
@@ -40,6 +42,7 @@ public class CharacterShoot : MonoBehaviour
 
 	public void ReloadCurrentWeapon()
 	{
+		Sound.Play();
 		CurrentWeapon.Reload(BulletDictionary[CurrentWeaponName]);
 		animator.SetTrigger("Reload");
 	}
