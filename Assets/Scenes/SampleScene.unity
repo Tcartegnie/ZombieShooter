@@ -319,8 +319,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4811ad67400b34e4697ca8ddfcd9ee2d, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -446,8 +446,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 50c14b716354c8f44ad5d96bb994b013, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -657,7 +657,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3c5c1d4d7b9307c458890a4beb12e4ae, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1275,7 +1275,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7235589651961687741, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
@@ -1606,7 +1606,12 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504394162346272542, guid: 4a5e968f776ba214fa88c60c6f18f292,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925881586, guid: 4a5e968f776ba214fa88c60c6f18f292, type: 3}
@@ -1752,8 +1757,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4d7e0d7e0a0fedb4483ac4fa04b15c83, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1956,8 +1961,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 879545beaf5a1f940aac3a9ac865ed54, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2115,7 +2120,7 @@ PrefabInstance:
     - target: {fileID: 1677616587057324249, guid: 4a5e968f776ba214fa88c60c6f18f292,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925881586, guid: 4a5e968f776ba214fa88c60c6f18f292, type: 3}
@@ -2303,8 +2308,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8602b7d5cd15c1943a50aa53f171c8cf, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3389,7 +3394,7 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponData
       value: 
-      objectReference: {fileID: 11400000, guid: 1ebe788f10399224bb7809bec460bbb3,
+      objectReference: {fileID: 11400000, guid: b760b422176e8a74c86f61341a1ba65d,
         type: 2}
     - target: {fileID: 4107501358257951474, guid: b40ec1e0bc791e144ad0525ee4f47550,
         type: 3}
