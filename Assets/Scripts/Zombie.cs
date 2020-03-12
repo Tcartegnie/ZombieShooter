@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
+	public AudioSource SoundSource;
+	public AudioClip HitSound;
+	public AudioSource HitScream;
+
 	public NavMeshAgent agent;
 	public Transform target;
 	public float PV;
@@ -12,10 +16,20 @@ public class Zombie : MonoBehaviour
 	[SerializeField]
 	Animator animator;
 
+	public List<AudioClip> FootstepSound = new List<AudioClip>();
+	public List<AudioClip> HitSounds = new List<AudioClip>();
+	public List<AudioClip> ZedsExpresiveNoise = new List<AudioClip>();
+
+
+	int IDSoundPlayer = 0;
+
+
 	public void Update()
 	{
 		SetTarget();
 		CheckAttackDistance();
+
+		//Debug.Log(GetnormalizedTargetDistance(5));
 	}
 
 	public void SetTarget()
@@ -26,9 +40,21 @@ public class Zombie : MonoBehaviour
 	}
 
 
+	public float GetTargetDistance()
+	{
+		return Vector3.Distance(transform.position, target.position);
+	}
+
+	public float GetnormalizedTargetDistance(float MaxDistance)
+	{
+		float distance = Vector3.Distance(transform.position,target.position);
+		float test = (MaxDistance/ distance);
+		return Mathf.Clamp(test,0,1);
+	}
+
 	public void CheckAttackDistance()
 	{
-		if(Vector3.Distance(transform.position, target.position) < 2)
+		if( GetTargetDistance() < 2)
 		{
 			CallAttack();
 		}
@@ -76,9 +102,46 @@ public class Zombie : MonoBehaviour
 		{
 			Hit(other.gameObject.GetComponent<Bullet>().GetDamage());
 			Destroy(other.gameObject);
+			SoundSource.PlayOneShot(HitSound,GetnormalizedTargetDistance(10));
+			//SoundSource.Play(HitScream,GetnormalizedTargetDistance(10));
+			if (HitScream.isPlaying == false)
+			{
+				HitScream.volume = GetnormalizedTargetDistance(10);
+				HitScream.Play();
+			}
 		}
 	}
 
+
+	public void PlayRandomSound(List<AudioClip>Sounds)
+	{
+		int SoundPlayed = 0;
+		do
+		{
+			SoundPlayed = Random.Range(0, Sounds.Count);
+		}
+		while (IDSoundPlayer == SoundPlayed);
+
+		IDSoundPlayer = SoundPlayed;
+		float SoundVolume = GetnormalizedTargetDistance(10);
+		Debug.Log(SoundVolume);
+		SoundSource.PlayOneShot(Sounds[SoundPlayed], SoundVolume);
+	}
+
+	public void PlayFootStepSound()
+	{
+		PlayRandomSound(FootstepSound);
+	}
+
+	public void PlayHitScreamSound()
+	{
+		PlayRandomSound(FootstepSound);
+	}
+
+	public void PlayZedsExpressiveNoise()
+	{
+		PlayRandomSound(ZedsExpresiveNoise);
+	}
 
 	/*
 	 1- Faire un gun, et un mitraillette
