@@ -9,6 +9,8 @@ public class Zombie : MonoBehaviour
 	public AudioClip HitSound;
 	public AudioSource HitScream;
 
+	public AudioSource ZombieAttackSound;
+
 	public NavMeshAgent agent;
 	public Transform target;
 	public float PV;
@@ -73,6 +75,7 @@ public class Zombie : MonoBehaviour
 			float dotproduct = Vector3.Dot(test,target.right);
 			target.GetComponent<CharacterMovement>().Hit(2,dotproduct);
 		}
+		ZombieAttackSound.Play();
 	}
 	
 
