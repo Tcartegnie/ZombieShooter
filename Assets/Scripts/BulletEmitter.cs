@@ -41,7 +41,7 @@ public class BulletEmitter : MonoBehaviour
 			SetCanonScope(characterShoot.GetShootDirection().normalized);
 			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data.Spread)));
 			GunParicle.Play();
-			ShootNoise.Play();
+			ShootNoise.PlayOneShot(ShootNoise.clip);
 			
 		}
 
