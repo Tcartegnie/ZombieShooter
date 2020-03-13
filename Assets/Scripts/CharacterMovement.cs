@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-
+	public SoundPlayer Sound;
 	public float Speed;
 	[SerializeField]
 	Transform camera;
@@ -21,7 +21,6 @@ public class CharacterMovement : MonoBehaviour
 	Vector3 direction;
 	public DashMovement Dashmovement;
 
-	public List<AudioSource> Sounds = new List<AudioSource>();
 
 	int IDSoundPlayer = 0;
 
@@ -102,19 +101,7 @@ public class CharacterMovement : MonoBehaviour
 		Dashmovement.Dash(direction.normalized);
 	}
 
-	public void PlayFootStepSound()
-	{
-		int SoundPlayed = 0;
-		do
-		{
-			SoundPlayed = Random.Range(0, Sounds.Count);
-		}
-		while (IDSoundPlayer == SoundPlayed);
 
-		IDSoundPlayer = SoundPlayed;
-
-		Sounds[SoundPlayed].Play();
-	}
 
 
 }

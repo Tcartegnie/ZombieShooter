@@ -42,7 +42,7 @@ public class CharacterShoot : MonoBehaviour
 
 	public void ReloadCurrentWeapon()
 	{
-		Sound.PlayOneShot(Sound.clip);
+		Sound.PlayOneShot(Sound.clip );
 		CurrentWeapon.Reload(BulletDictionary[CurrentWeaponName]);
 		animator.SetTrigger("Reload");
 	}
