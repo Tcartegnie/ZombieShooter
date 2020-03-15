@@ -65,7 +65,7 @@ public class Zombie : MonoBehaviour
 			float dotproduct = Vector3.Dot(test,target.right);
 			target.GetComponent<CharacterMovement>().Hit(2,dotproduct);
 		}
-		//ZombieAttackSound.Play();
+		Sounds.PlayRandomSound("AttackCAC");
 	}
 	
 
@@ -100,16 +100,7 @@ public class Zombie : MonoBehaviour
 			Sounds.PlayRandomSound("ZombieHit");
 		}
 	}
+	
 
-
-	public void PlayHitScreamSound()
-	{
-		Sounds.PlayRandomSound("ZombieHit");
-	}
-
-	public void PlayZedsExpressiveNoise()
-	{
-		Sounds.PlayRandomSound("ZombieHit");
-	}
 
 }

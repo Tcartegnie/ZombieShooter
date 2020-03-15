@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52bdf2b207e16404084a9975c6be33a7, type: 3}
   m_Name: ZombieAttack
   m_EditorClassIdentifier: 
-  ListName: Attack
-  sounds: []
+  ListName: AttackCAC
+  sounds:
+  - {fileID: 8300000, guid: e275a489ed5ea2541a916a0ff4631df9, type: 3}
