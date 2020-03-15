@@ -37,12 +37,13 @@ public class BulletEmitter : MonoBehaviour
 		for (int i = 0; i < data.BulletPerShoot; i++)
 		{
 			GameObject currentBullet = new GameObject();
-			yield return new WaitForSeconds(data.CoolDownBetweenBullet);
+	
 			SetCanonScope(characterShoot.GetShootDirection().normalized);
 			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data.Spread)));
 			GunParicle.Play();
 			ShootNoise.PlayOneShot(ShootNoise.clip);
-			
+			yield return new WaitForSeconds(data.CoolDownBetweenBullet);
+
 		}
 
 	}
