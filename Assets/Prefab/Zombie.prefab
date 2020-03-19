@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &527718585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 527718586}
+  m_Layer: 10
+  m_Name: BulletCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &527718586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527718585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1677616587057324248}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1677616587057324249
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +60,7 @@ Transform:
   m_Children:
   - {fileID: 5922976415019293870}
   - {fileID: 1413493440895982661}
+  - {fileID: 527718586}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -194,12 +225,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8aaa41387499740a60ea5511ea0c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZombieAttackSound: {fileID: 0}
+  Sounds: {fileID: 272860135990794440}
   agent: {fileID: 1008094811}
   target: {fileID: 0}
   PV: 50
   TargetOffset: 0
   animator: {fileID: 4375423417804485076}
+  mesh: {fileID: -4910155946660035214, guid: 3261759badce8714395039ca8dc62d11, type: 3}
+  Bloodparticles: {fileID: 8910445191952418301, guid: 8550618477a8fd04fa60df423922f245,
+    type: 3}
 --- !u!114 &272860135990794440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundDatas: {fileID: 11400000, guid: 1634f109121c2744ea977e1b072c296d, type: 2}
   SoundSource: {fileID: 97093136653696655}
-  Player: {fileID: 1413493440895982661}
+  Player: {fileID: 0}
 --- !u!1001 &1677616586164565940
 PrefabInstance:
   m_ObjectHideFlags: 0
