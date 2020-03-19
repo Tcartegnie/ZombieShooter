@@ -6,8 +6,6 @@ using UnityEngine.AI;
 public class Zombie : MonoBehaviour
 {
 	public SoundPlayer Sounds;   
-	public AudioSource ZombieAttackSound;
-
 	public NavMeshAgent agent;
 	public Transform target;
 	public float PV;
@@ -15,18 +13,17 @@ public class Zombie : MonoBehaviour
 	[SerializeField]
 	Animator animator;
 
+	public SkinnedMeshRenderer mesh;
 
-
-
-	
+	public GameObject Bloodparticles;	
 
 
 	public void Update()
 	{
 		SetTarget();
 		CheckAttackDistance();
-
-		//Debug.Log(GetnormalizedTargetDistance(5));
+		//mesh = GetComponentInParent<SkinnedMeshRenderer>();
+		//Debug.Log(GetnormalimeszedTargetDistance(5));
 	}
 
 	public void SetTarget()
@@ -89,18 +86,53 @@ public class Zombie : MonoBehaviour
 	
 	}
 
-	private void OnTriggerEnter(Collider other)
+	private void OnCollisionEnter(Collision collision)
 	{
-		if (other.gameObject.tag == ("Bullet"))
+		if (collision.gameObject.tag == ("Bullet"))
 		{
-			Hit(other.gameObject.GetComponent<Bullet>().GetDamage());
-			Destroy(other.gameObject);
-			//	SoundSource.PlayOneShot(HitSound,GetnormalizedTargetDistance(10));
-			//SoundSource.Play(HitScream,GetnormalizedTargetDistance(10));
+			Hit(collision.gameObject.GetComponent<Bullet>().GetDamage());
+			Destroy(collision.gameObject);
+			BloodEmission(collision.transform);
 			Sounds.PlayRandomSound("ZombieHit");
 		}
 	}
+
+	//private void OnTriggerEnter(Collider other)
+	//{
+	//	if (other.gameObject.tag == ("Bullet"))
+	//	{
+	//		Hit(other.gameObject.GetComponent<Bullet>().GetDamage());
+	//		Destroy(other.gameObject);
+	//		BloodEmission(other.transform);
+	//		Sounds.PlayRandomSound("ZombieHit");
+	//	}
+	//}
+
+
+	public Vector3 GetClostesPoint(Vector3 Position,Vector3[] points)
+	{
+		Vector3 ClosestPosition = Position;
+		float ClosestDistance = Mathf.Infinity;
+		for (int i = 0; i < points.Length; i++)
+		{
+			float distance = Vector3.Distance(Position, points[i]);
+			if(distance < ClosestDistance)
+			{
+				ClosestPosition = points[i];
+			}
+		}
+		return ClosestPosition;
+	}
+
+	public void BloodEmission(Transform ImpactPoint)
+	{
 	
+	//	Vector3 [] Verticesposition = mesh.sharedMesh.vertices;
+	//	Vector3 ClosestImpactPosition  = GetClostesPoint(ImpactPoint.position,Verticesposition);
+		Instantiate(Bloodparticles, ImpactPoint.position,Quaternion.LookRotation(ImpactPoint.forward));
+		//Debug.Break();
+	}
+
 
 
 }
