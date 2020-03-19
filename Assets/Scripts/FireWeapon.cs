@@ -24,7 +24,7 @@ public class FireWeapon : MonoBehaviour
 
 	public WeaponData weaponData;
 	public BulletEmitter bulletEmitter;
-
+	public CharacterShoot characterShoot;
 	public int CurrentLoadOut { get => currentLoadOut; set => currentLoadOut = value; }
 
 	public void Reload(int ammo)
@@ -67,6 +67,7 @@ public class FireWeapon : MonoBehaviour
 		if(!OnCoolDown && CheckAmmoCount())
 		{
 			OnCoolDown = true;
+			bulletEmitter.SetCanonScope(characterShoot.GetShootDirection().normalized);
 			bulletEmitter.Shoot(weaponData);
 			CurrentLoadOut -= 1;
 			StartCoroutine(ShootCoolDown());
