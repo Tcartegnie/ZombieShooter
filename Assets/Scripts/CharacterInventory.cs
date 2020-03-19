@@ -9,8 +9,10 @@ public class CharacterInventory : MonoBehaviour
 	public CharacterShoot characterShoot;
 	public UIInventorySlots slots;
 
+	public Transform WeaponSocket;
 
 	List<WeaponData> Weapons;
+	GameObject CurrentInstanciedModel;
 
 
 	public void Update()
@@ -40,8 +42,21 @@ public class CharacterInventory : MonoBehaviour
 			string WeaponName = slots.GetWeaponName(SlotID);
 			WeaponData data = weaponDataBase.GetWeaponByName(WeaponName);
 			characterShoot.ChangeWeapon(data);
+			InstantiateWeapon(data);
 		}
 		
+	}
+
+	public void InstantiateWeapon(WeaponData data)
+	{
+		if (data != null)
+		{
+			if (CurrentInstanciedModel != null)
+			{
+				Destroy(CurrentInstanciedModel.gameObject);
+			}
+			CurrentInstanciedModel = Instantiate(data.WeaponModel, WeaponSocket);
+		}
 	}
 
 	public void TurnOnOffInventory()
@@ -50,7 +65,10 @@ public class CharacterInventory : MonoBehaviour
 		InventoryUI.SetItemList(Weapons);
 		InventoryUI.TurnOnOffInventory();
 	}
-	
 
+	public bool InventoryIsEneable()
+	{
+		return InventoryUI.MenuIsEnable();
+	}
 
 }
