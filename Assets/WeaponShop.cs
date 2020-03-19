@@ -7,6 +7,7 @@ public class WeaponShop : MonoBehaviour
 	public UIInventorySlots inventorySlots;
 	public DisplayMenuItem menuItem;
 	public WeaponDataBase weaponDataBase;
+	bool MenuEnable;
 	
 	public void TurnOnSHop()
 	{
@@ -21,10 +22,12 @@ public class WeaponShop : MonoBehaviour
 		if(gameObject.activeInHierarchy)
 		{
 			TurnOffShop();
+			MenuEnable = false;
 		}
 		else
 		{
 			TurnOnSHop();
+			MenuEnable = true;
 		}
 	}
 
@@ -42,6 +45,5 @@ public class WeaponShop : MonoBehaviour
 	{
 		menuItem.TurnOffInventory();
 	}
-
 
 }
