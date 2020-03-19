@@ -14,10 +14,19 @@ public class Bullet : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 		rb.AddForce(transform.forward * Speed);
     }
+	//public void Update()
+	//{
+	//	transform.position += transform.forward * (Time.deltaTime * Speed);
+	//}
 
 
 	public int GetDamage()
 	{
 		return damage;
+	}
+
+	public void OnCollisionEnter(Collision collision)
+	{
+		Destroy(gameObject);
 	}
 }
