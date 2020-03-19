@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BulletEmitter : MonoBehaviour
 {
-
 	public ParticleSystem GunParicle;
 	public AudioSource ShootNoise;
 	/*
@@ -14,7 +13,7 @@ public class BulletEmitter : MonoBehaviour
 
 
 	public Transform Canon;
-	public CharacterShoot characterShoot;
+
 
 	public void Shoot(WeaponData data)
 	{
@@ -37,8 +36,6 @@ public class BulletEmitter : MonoBehaviour
 		for (int i = 0; i < data.BulletPerShoot; i++)
 		{
 			GameObject currentBullet = new GameObject();
-	
-			SetCanonScope(characterShoot.GetShootDirection().normalized);
 			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data.Spread)));
 			GunParicle.Play();
 			ShootNoise.PlayOneShot(ShootNoise.clip);
@@ -46,5 +43,7 @@ public class BulletEmitter : MonoBehaviour
 
 		}
 
+
 	}
+
 }
