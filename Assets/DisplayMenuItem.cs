@@ -9,7 +9,7 @@ public class DisplayMenuItem : MonoBehaviour
 	public UIInventorySlots InventorySlots;
 	List<WeaponData> ItemToDisplay = new List<WeaponData>();
 	protected List<GameObject> CurrentItemInstaciated = new List<GameObject>();
-
+	bool IsEneable;
 
 
 
@@ -17,11 +17,13 @@ public class DisplayMenuItem : MonoBehaviour
 	public void TurnOnInventory()
 	{
 		gameObject.SetActive(true);
+		IsEneable = true;
 	}
 
 	public void TurnOffInventory()
 	{
 		gameObject.SetActive(false);
+		IsEneable = false;
 	}
 
 	public void TurnOnOffInventory()
@@ -33,7 +35,7 @@ public class DisplayMenuItem : MonoBehaviour
 		}
 		else
 		{
-			gameObject.SetActive(false);
+			TurnOffInventory();
 		}
 	
 	}
@@ -66,6 +68,11 @@ public class DisplayMenuItem : MonoBehaviour
 			//	itemrect.inventory = this;
 			CurrentItemInstaciated.Add(rect);
 		}
+	}
+
+	public bool MenuIsEnable()
+	{
+		return IsEneable;
 	}
 
 }
