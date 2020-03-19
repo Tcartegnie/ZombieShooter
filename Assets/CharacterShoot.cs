@@ -27,6 +27,8 @@ public class CharacterShoot : MonoBehaviour
 	// Update is called once per frame
 	WeaponType CurrentWeaponName;
 	Vector3 ShootDirection;
+	public float RecoilDuration;
+	public AnimationCurve RecoilCurve;
 
 	public CharacterController characterController;
 
@@ -65,6 +67,7 @@ public class CharacterShoot : MonoBehaviour
 
 	public void Update()
 	{
+
 	}
 
 	public Vector3 GetShootDirection()
@@ -76,6 +79,7 @@ public class CharacterShoot : MonoBehaviour
 		if (Physics.Raycast(ImpactPoint, out hit))
 		{
 			Vector3 direction = hit.point - transform.position;
+		//	Debug.DrawLine(transform.position,hit.point,Color.red,Mathf.Infinity);
 			ShootDirection = new Vector3(direction.x, 0, direction.z);
 			return ShootDirection;
 		}
@@ -120,25 +124,32 @@ public class CharacterShoot : MonoBehaviour
 
 	public void Shoot()
 	{
-
 		IsWeaponEquiped = true;
 		animator.SetBool("WeaponEquiped", IsWeaponEquiped);
+		animator.SetTrigger("Shoot");
 		CurrentHoldWeaponCoolDown = HoldWeaponCoolDown;
 		TurnInShootDirection(GetShootDirection().normalized);
 		CurrentWeapon.CallShoot();
-		Recoil();
+		StartCoroutine(Recoil());
 	}
 
-	public void Recoil()
-	{
-		Debug.Log("Test");
-		characterController.Move(-transform.forward * GetCurrentWeapon().weaponData.recoil);
-	}
 
 	public void TurnInShootDirection(Vector3 Position)
 	{
 		transform.rotation = Quaternion.LookRotation(new Vector3(Position.x, 0, Position.z));
 	}
 
+	IEnumerator Recoil()
+	{
 
+		WeaponData weapondata = GetCurrentWeapon().weaponData;
+		Debug.DrawLine(transform.position, (transform.position - (transform.forward * weapondata.RecoilDistance)), Color.red, Mathf.Infinity);
+		float NormalizedDistanceOfRecoil = (weapondata.RecoilDistance / weapondata.RecoilDurantion);
+		Debug.Log(NormalizedDistanceOfRecoil);
+		for (float t = 0; t < weapondata.RecoilDurantion; t += Time.deltaTime)
+		{
+			yield return null;
+			characterController.Move(-transform.forward * (NormalizedDistanceOfRecoil * Time.deltaTime) * weapondata.RecoilCurve.Evaluate(t));
+		}
+	}
 }
