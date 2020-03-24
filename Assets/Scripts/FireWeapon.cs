@@ -26,6 +26,7 @@ public class FireWeapon : MonoBehaviour
 	public BulletEmitter bulletEmitter;
 	public CharacterShoot characterShoot;
 	public AudioSource WeaponSound;
+	public Recoil Recoil;
 	public int CurrentLoadOut { get => currentLoadOut; set => currentLoadOut = value; }
 	
 	public void Reload(int ammo)
@@ -72,7 +73,7 @@ public class FireWeapon : MonoBehaviour
 			CurrentLoadOut -= 1;
 			WeaponSound.Play();
 			StartCoroutine(ShootCoolDown());
-			characterShoot.PlayRecoil();
+			Recoil.PlayRecoil(weaponData);
 			characterShoot.PlayAnimationShoot();
 		}
 	}

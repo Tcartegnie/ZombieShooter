@@ -12,7 +12,7 @@ public class DebugWeapon : MonoBehaviour
 	public void Update()
 	{
 		FireWeapon CurrentWeapon = CS.GetCurrentWeapon();
-		AmmoText.text = CurrentWeapon.CurrentLoadOut + "/" + CS.GetAmmo(CurrentWeapon.weaponData.WeaponType) + "\n" + CurrentWeapon.weaponData.WeaponType;
+	//	AmmoText.text = CurrentWeapon.CurrentLoadOut + "/" + CS.GetAmmo(CurrentWeapon.weaponData.WeaponType) + "\n" + CurrentWeapon.weaponData.WeaponType;
 	}
 
 }

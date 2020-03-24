@@ -13,12 +13,12 @@ public class PlayerInput : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-			if (!CharacterInventory.InventoryIsEneable())
-			{
-				CheckMovementInput();
-				CheckShootInput();
-			}
-		CheckInventoryInput();
+		if (!CharacterInventory.InventoryIsEneable())
+		{
+			CheckMovementInput();
+			CheckShootInput();
+		}
+			CheckInventoryInput();
     }
 
 	void CheckShootInput()
@@ -37,7 +37,7 @@ public class PlayerInput : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.A))
 		{
-			PlayerShoot.GiveAmmo();
+			CharacterInventory.GiveAmmo();
 		}
 
 	}

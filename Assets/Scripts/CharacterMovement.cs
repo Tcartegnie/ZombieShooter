@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-	public SoundPlayer Sound;
 	public float Speed;
 	[SerializeField]
 	Transform camera;
@@ -12,8 +11,6 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField]
 	Animator animator;
 
-	[SerializeField]
-	CharacterShoot charactershoot;
 	public int PV;
 	public float RotationSpeed;
 	Rigidbody rb;
@@ -24,11 +21,6 @@ public class CharacterMovement : MonoBehaviour
 	public GameObject FootstepFX;
 	public Transform FootstepOffset;
 
-
-	int IDSoundPlayer = 0;
-
-
-
 	public void Walk(float ForwardInput, float LateralInput)
 	{
 		if (ForwardInput != 0 || LateralInput != 0)
@@ -38,11 +30,8 @@ public class CharacterMovement : MonoBehaviour
 		}
 		PlayRunAnimation(ForwardInput,LateralInput);
 	}
-	public void PlayRunAnimation(float ForwardInput, float LateralInput)
-	{
-		Vector2 Inputs = new Vector2(ForwardInput, LateralInput);
-		animator.SetFloat("Speed", Inputs.magnitude);
-	}
+
+	
 
 	public void SetDirection(float ForwardInput, float LateralInput)
 	{
@@ -75,6 +64,13 @@ public class CharacterMovement : MonoBehaviour
 		return Direction;
 	}
 
+
+	public void PlayRunAnimation(float ForwardInput, float LateralInput)
+	{
+		Vector2 Inputs = new Vector2(ForwardInput, LateralInput);
+		animator.SetFloat("Speed", Inputs.magnitude);
+	}
+
 	public Vector3 GetWalkingDirection()
 	{
 		return direction;
@@ -97,7 +93,7 @@ public class CharacterMovement : MonoBehaviour
 	}
 
 
-	public void Hit(int damage,float hitdirection)
+	public void Hit(int damage,float hitdirection)//Must move elsewhere
 	{
 		PV -= damage;
 		CheckPV();
@@ -105,7 +101,7 @@ public class CharacterMovement : MonoBehaviour
 		animator.SetTrigger("OnHit");
 	}
 
-	public void CheckPV()
+	public void CheckPV()//Must move elsewhere
 	{
 		if(PV <= 0)
 		{
@@ -113,7 +109,7 @@ public class CharacterMovement : MonoBehaviour
 		}
 	}
 
-	public void CallDash()
+	public void CallDash()//Must Move Elsewhere
 	{
 		Dashmovement.Dash(direction.normalized);
 	}

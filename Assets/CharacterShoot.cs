@@ -5,11 +5,9 @@ using UnityEngine;
 public class CharacterShoot : MonoBehaviour
 {
 
-	public int GunAmmo;
-	public int ShotgunAmmo;
-	public int RifleAmmo;
 
-	Dictionary<WeaponType, int> BulletDictionary = new Dictionary<WeaponType, int>();
+
+
 
 	public AudioSource Sound;
 
@@ -26,13 +24,10 @@ public class CharacterShoot : MonoBehaviour
 	[SerializeField]
 	float HoldWeaponCoolDown;
 	// Update is called once per frame
-	WeaponType CurrentWeaponName;
 	Vector3 ShootDirection;
-	public float RecoilDuration;
-	public AnimationCurve RecoilCurve;
 
-	public CharacterController characterController;
 	public CharacterMovement characterMovement;
+	public CharacterInventory Inventory;
 	public Transform WeaponSocket;
 
 	public FireWeapon GetCurrentWeapon()
@@ -40,12 +35,10 @@ public class CharacterShoot : MonoBehaviour
 		return CurrentWeapon;
 	}
 
-	public void ChangeWeapon(WeaponData data)
+	public void ChangeWeapon(WeaponData data)//Inventory ?
 	{
 		if (data != null)
 		{
-		
-			//CurrentWeapon.
 			InstantiateWeapon(data);
 			CurrentWeapon.weaponData = data;
 			CurrentWeapon.SetWeaponData(data);
@@ -54,7 +47,7 @@ public class CharacterShoot : MonoBehaviour
 	}
 
 
-	public void InstantiateWeapon(WeaponData data)
+	public void InstantiateWeapon(WeaponData data)//Inventory
 	{
 		if (data != null)
 		{
@@ -72,23 +65,15 @@ public class CharacterShoot : MonoBehaviour
 	public void ReloadCurrentWeapon()
 	{
 		Sound.PlayOneShot(Sound.clip );
-		CurrentWeapon.Reload(BulletDictionary[CurrentWeaponName]);
+		WeaponData data = CurrentWeapon.weaponData;
+		CurrentWeapon.Reload(Inventory.GetAmmo(data.WeaponType, data.LoadoutMax));
 		animator.SetTrigger("Reload");
 	}
 
-	public void GiveAmmo()
-	{
-		SetAmmo(WeaponType.Shotgun, 99999);
-		SetAmmo(WeaponType.Gun, 99999);
-		SetAmmo(WeaponType.Rifle, 99999);
-	}
+
 
 	private void Start()
 	{
-		characterController =GetComponent<CharacterController>();
- 		BulletDictionary.Add(WeaponType.Gun,GunAmmo);
-		BulletDictionary.Add(WeaponType.Shotgun,ShotgunAmmo);
-		CurrentWeaponName = CurrentWeapon.weaponData.WeaponType;
 		ReloadCurrentWeapon();
 	}
 
@@ -109,15 +94,7 @@ public class CharacterShoot : MonoBehaviour
 
 
 
-	public int GetAmmo(WeaponType WeaponName)
-	{
-		return BulletDictionary[CurrentWeaponName];
-	}
 
-	public void SetAmmo(WeaponType WeaponName, int AmmoValue)
-	{
-		BulletDictionary[CurrentWeaponName] = AmmoValue;
-	}
 
 
 	public void CheckCoolDownWeaponHolding()
@@ -164,10 +141,6 @@ public class CharacterShoot : MonoBehaviour
 		animator.SetTrigger("Shoot");
 	}
 
-	public void PlayRecoil()
-	{
-		StartCoroutine(Recoil());
-	}
 
 	public void TurnInShootDirection()
 	{
@@ -177,15 +150,5 @@ public class CharacterShoot : MonoBehaviour
 		
 	}
 
-	IEnumerator Recoil()
-	{
 
-		WeaponData weapondata = GetCurrentWeapon().weaponData;
-		float NormalizedDistanceOfRecoil = (weapondata.RecoilDistance / weapondata.RecoilDurantion);
-		for (float t = 0; t < weapondata.RecoilDurantion; t += Time.deltaTime)
-		{
-			yield return null;
-			characterController.Move(-transform.forward * (NormalizedDistanceOfRecoil * Time.deltaTime) * weapondata.RecoilCurve.Evaluate(t));
-		}
-	}
 }
