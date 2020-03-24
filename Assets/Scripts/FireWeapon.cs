@@ -25,8 +25,9 @@ public class FireWeapon : MonoBehaviour
 	public WeaponData weaponData;
 	public BulletEmitter bulletEmitter;
 	public CharacterShoot characterShoot;
+	public AudioSource WeaponSound;
 	public int CurrentLoadOut { get => currentLoadOut; set => currentLoadOut = value; }
-
+	
 	public void Reload(int ammo)
 	{
 		if(!IsLoading)
@@ -64,23 +65,45 @@ public class FireWeapon : MonoBehaviour
 
 	public void CallShoot()
 	{
-		if(!OnCoolDown && CheckAmmoCount())
+		if(!OnCoolDown && CheckAmmoCount() && !IsLoading)
 		{
 			OnCoolDown = true;
-			bulletEmitter.SetCanonScope(characterShoot.GetShootDirection().normalized);
-			bulletEmitter.Shoot(weaponData);
+			bulletEmitter.Shoot(characterShoot.GetShootDirection().normalized, weaponData);
 			CurrentLoadOut -= 1;
+			WeaponSound.Play();
 			StartCoroutine(ShootCoolDown());
+			characterShoot.PlayRecoil();
+			characterShoot.PlayAnimationShoot();
 		}
-
-	
 	}
 	
+	public void SetWeaponData(WeaponData data)
+	{
+		weaponData = data;
+		WeaponSound.clip = data.FireSound;
+	}
+	public void SetBulletEmitter(BulletEmitter bulletEmitter)
+	{
+		this.bulletEmitter = bulletEmitter;
+	}
+
+
+	public void OnBeginReloadAnimation()
+	{
+		IsLoading = true;
+	}
+
+	public void OnEndReloadAnimation()
+	{
+		IsLoading = false;
+	}
 
 	IEnumerator Reloading(int ammo)
 	{
+
 		yield return new  WaitForSeconds(weaponData.ReloadTime);
 		PutAmmo(ammo);
+		
 	}
 
 	IEnumerator ShootCoolDown()
