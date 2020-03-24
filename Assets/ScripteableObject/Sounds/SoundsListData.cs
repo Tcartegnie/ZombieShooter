@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class SoundsListData : ScriptableObject
 {
+	public string NameList;
 	public List<SoundsData> Soundsdatas;
 
 	Dictionary<string,List<AudioClip>> Multiplesoundsdatas = new Dictionary<string, List<AudioClip>>();
 
-	public void InitSoundsData()
+	public void Awake()
 	{
-		foreach(SoundsData data in Soundsdatas)
+		SetSoundDictionary();
+	}
+
+	public void SetSoundDictionary()
+	{
+		foreach (SoundsData sound in Soundsdatas)
 		{
-			Multiplesoundsdatas.Add(data.ListName,data.sounds);
+			Multiplesoundsdatas.Add(sound.ListName, sound.sounds);
 		}
 	}
 
@@ -22,5 +28,10 @@ public class SoundsListData : ScriptableObject
 		List<AudioClip> sounds = Multiplesoundsdatas[SoundListName];
 
 		return sounds[Random.Range(0, sounds.Count)];
+	}
+
+	public SoundsData GetSoundListByName(string listName)
+	{
+		return Soundsdatas.Find(list => list.ListName == listName);
 	}
 }
