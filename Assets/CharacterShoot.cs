@@ -18,6 +18,7 @@ public class CharacterShoot : MonoBehaviour
 	Animator animator;
 
 	public FireWeapon CurrentWeapon;
+	public GameObject CurrentInstanciedWeapon;
 	[SerializeField]
 	public bool IsWeaponEquiped = false;
 	[SerializeField]
@@ -31,6 +32,8 @@ public class CharacterShoot : MonoBehaviour
 	public AnimationCurve RecoilCurve;
 
 	public CharacterController characterController;
+	public CharacterMovement characterMovement;
+	public Transform WeaponSocket;
 
 	public FireWeapon GetCurrentWeapon()
 	{
@@ -39,8 +42,32 @@ public class CharacterShoot : MonoBehaviour
 
 	public void ChangeWeapon(WeaponData data)
 	{
-		CurrentWeapon.weaponData = data;
+		if (data != null)
+		{
+		
+			//CurrentWeapon.
+			InstantiateWeapon(data);
+			CurrentWeapon.weaponData = data;
+			CurrentWeapon.SetWeaponData(data);
+			CurrentWeapon.SetBulletEmitter(CurrentInstanciedWeapon.GetComponent<BulletEmitter>());//C'est degeulasse
+		}
 	}
+
+
+	public void InstantiateWeapon(WeaponData data)
+	{
+		if (data != null)
+		{
+			if (CurrentInstanciedWeapon != null)
+			{
+				Destroy(CurrentInstanciedWeapon.gameObject);
+			}
+			CurrentInstanciedWeapon = Instantiate(data.WeaponModel, WeaponSocket);
+		
+			//CurrentInstanciedModel.GetComponent<BulletEmitter>();
+		}
+	}
+
 
 	public void ReloadCurrentWeapon()
 	{
@@ -65,11 +92,6 @@ public class CharacterShoot : MonoBehaviour
 		ReloadCurrentWeapon();
 	}
 
-	public void Update()
-	{
-
-	}
-
 	public Vector3 GetShootDirection()
 	{
 		Ray ImpactPoint = GetHitOnClick();
@@ -79,7 +101,6 @@ public class CharacterShoot : MonoBehaviour
 		if (Physics.Raycast(ImpactPoint, out hit))
 		{
 			Vector3 direction = hit.point - transform.position;
-		//	Debug.DrawLine(transform.position,hit.point,Color.red,Mathf.Infinity);
 			ShootDirection = new Vector3(direction.x, 0, direction.z);
 			return ShootDirection;
 		}
@@ -124,28 +145,43 @@ public class CharacterShoot : MonoBehaviour
 
 	public void Shoot()
 	{
-		IsWeaponEquiped = true;
-		animator.SetBool("WeaponEquiped", IsWeaponEquiped);
-		animator.SetTrigger("Shoot");
-		CurrentHoldWeaponCoolDown = HoldWeaponCoolDown;
-		TurnInShootDirection(GetShootDirection().normalized);
-		CurrentWeapon.CallShoot();
-		StartCoroutine(Recoil());
+		if (CurrentInstanciedWeapon != null)
+		{
+			IsWeaponEquiped = true;
+			animator.SetBool("WeaponEquiped", IsWeaponEquiped);
+		
+			CurrentHoldWeaponCoolDown = HoldWeaponCoolDown;
+			TurnInShootDirection();
+			CurrentWeapon.CallShoot();
+			
+		}
 	}
 
 
-	public void TurnInShootDirection(Vector3 Position)
+
+	public void PlayAnimationShoot()
 	{
-		transform.rotation = Quaternion.LookRotation(new Vector3(Position.x, 0, Position.z));
+		animator.SetTrigger("Shoot");
+	}
+
+	public void PlayRecoil()
+	{
+		StartCoroutine(Recoil());
+	}
+
+	public void TurnInShootDirection()
+	{
+		Vector3 ShootDirection = GetShootDirection();
+		transform.rotation = Quaternion.LookRotation(new Vector3(ShootDirection.x, 0, ShootDirection.z));
+		characterMovement.SetDirection(ShootDirection);
+		
 	}
 
 	IEnumerator Recoil()
 	{
 
 		WeaponData weapondata = GetCurrentWeapon().weaponData;
-		Debug.DrawLine(transform.position, (transform.position - (transform.forward * weapondata.RecoilDistance)), Color.red, Mathf.Infinity);
 		float NormalizedDistanceOfRecoil = (weapondata.RecoilDistance / weapondata.RecoilDurantion);
-		Debug.Log(NormalizedDistanceOfRecoil);
 		for (float t = 0; t < weapondata.RecoilDurantion; t += Time.deltaTime)
 		{
 			yield return null;
