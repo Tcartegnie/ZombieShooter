@@ -5,14 +5,17 @@ using UnityEngine;
 public class SoundPlayer : MonoBehaviour
 {
 	int IDSoundPlayer = 0;
-	public SoundsListData SoundDatas;
+	public string ListName;
+	SoundsListData SoundDatas;
 	public AudioSource SoundSource;
 	public Transform Player;
 
-	public void Awake()
-	{
-		SoundDatas.InitSoundsData();
-	}
+	//public void Awake()
+	//{
+	//	SoundDatas.InitSoundsData();
+	//}
+
+	public SoundDatabase soundatabase;
 
 	public float GetnormalizedTargetDistance(float MaxDistance)
 	{
@@ -21,9 +24,9 @@ public class SoundPlayer : MonoBehaviour
 		return Mathf.Clamp(test, 0, 1);
 	}
 
-	public void PlayRandomSound(string RandomListName)
+	public void PlayRandomSound(string RandomSoundName)
 	{
-		SoundSource.PlayOneShot(SoundDatas.GetRandomSound(RandomListName),GetnormalizedTargetDistance(10));
+		SoundSource.PlayOneShot(soundatabase.GetRandomSound(ListName,RandomSoundName),GetnormalizedTargetDistance(10));
 	}
 
 	public void PlayFootStepSound()
