@@ -12,11 +12,13 @@ public class CharacterInventory : MonoBehaviour
 	public Transform WeaponSocket;
 
 	List<WeaponData> Weapons;
-	GameObject CurrentInstanciedModel;
+	GameObject CurrentWeapon;
+//	public FireWeapon CurrentWeapon;
 
-
+		
 	public void Update()
 	{
+		
 		if(Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			EquipeWeapon(0);
@@ -42,22 +44,11 @@ public class CharacterInventory : MonoBehaviour
 			string WeaponName = slots.GetWeaponName(SlotID);
 			WeaponData data = weaponDataBase.GetWeaponByName(WeaponName);
 			characterShoot.ChangeWeapon(data);
-			InstantiateWeapon(data);
 		}
 		
 	}
 
-	public void InstantiateWeapon(WeaponData data)
-	{
-		if (data != null)
-		{
-			if (CurrentInstanciedModel != null)
-			{
-				Destroy(CurrentInstanciedModel.gameObject);
-			}
-			CurrentInstanciedModel = Instantiate(data.WeaponModel, WeaponSocket);
-		}
-	}
+
 
 	public void TurnOnOffInventory()
 	{
