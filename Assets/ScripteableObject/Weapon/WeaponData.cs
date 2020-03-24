@@ -25,6 +25,10 @@ public class WeaponData : ScriptableObject
 	public float RecoilDurantion;
 	public float RecoilDistance;
 	public AnimationCurve RecoilCurve;
+	[Space]
+	public float CanonOffset;
+	public AudioClip ReloadingSound;
+	public AudioClip FireSound;
 
 
 
