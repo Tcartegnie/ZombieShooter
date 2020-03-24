@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletEmitter : MonoBehaviour
 {
 	public ParticleSystem GunParicle;
-	public AudioSource ShootNoise;
+
 	/*
 		- Dans l'idéal, il faudrait retiré MonoBehaviour du script
 		- Passer les weapons data en paramétre de la fonction shoot ?
@@ -15,9 +15,9 @@ public class BulletEmitter : MonoBehaviour
 	public Transform Canon;
 
 
-	public void Shoot(WeaponData data)
+	public void Shoot(Vector3 Direction,WeaponData data)
 	{
-		StartCoroutine(ShootBullets(data));
+		StartCoroutine(ShootBullets(Direction, data));
 	}
 
 	public void SetCanonScope(Vector3 direction)
@@ -31,18 +31,17 @@ public class BulletEmitter : MonoBehaviour
 		return Canon.forward + RandomSpread;
 	}
 
-	public IEnumerator ShootBullets(WeaponData data)
+	public IEnumerator ShootBullets(Vector3 Direction,WeaponData data)
 	{
+		GunParicle.Play();
 		for (int i = 0; i < data.BulletPerShoot; i++)
 		{
+			SetCanonScope(Direction);
 			GameObject currentBullet = new GameObject();
 			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data.Spread)));
-			GunParicle.Play();
-			ShootNoise.PlayOneShot(ShootNoise.clip);
 			yield return new WaitForSeconds(data.CoolDownBetweenBullet);
-
 		}
-
+	
 
 	}
 
