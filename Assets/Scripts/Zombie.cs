@@ -13,10 +13,8 @@ public class Zombie : MonoBehaviour
 	[SerializeField]
 	Animator animator;
 
-	public SkinnedMeshRenderer mesh;
-
-	public GameObject Bloodparticles;	
-
+	public GameObject Bloodparticles;
+	public GameObject FootstepFX;
 
 	public void Update()
 	{
@@ -133,6 +131,9 @@ public class Zombie : MonoBehaviour
 		//Debug.Break();
 	}
 
-
+	public void PlayFootstepFX()
+	{
+		Instantiate(FootstepFX, transform.position, new Quaternion());
+	}
 
 }
