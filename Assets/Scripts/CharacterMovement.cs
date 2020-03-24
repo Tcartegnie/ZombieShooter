@@ -21,6 +21,9 @@ public class CharacterMovement : MonoBehaviour
 	Vector3 direction;
 	public DashMovement Dashmovement;
 
+	public GameObject FootstepFX;
+	public Transform FootstepOffset;
+
 
 	int IDSoundPlayer = 0;
 
@@ -30,7 +33,7 @@ public class CharacterMovement : MonoBehaviour
 	{
 		if (ForwardInput != 0 || LateralInput != 0)
 		{
-			direction = GetForwardDirection(ForwardInput) + GetLateralDirection(LateralInput);
+			SetDirection(ForwardInput, LateralInput);
 			GoToDirection();
 		}
 		PlayRunAnimation(ForwardInput,LateralInput);
@@ -41,6 +44,15 @@ public class CharacterMovement : MonoBehaviour
 		animator.SetFloat("Speed", Inputs.magnitude);
 	}
 
+	public void SetDirection(float ForwardInput, float LateralInput)
+	{
+		direction = GetForwardDirection(ForwardInput) + GetLateralDirection(LateralInput);
+	}
+	
+	public void SetDirection(Vector3 directionToGo)
+	{
+		direction = directionToGo;
+	}
 	public void GoToDirection()
 	{
 		characterController.SimpleMove(direction.normalized * Speed);
@@ -77,6 +89,11 @@ public class CharacterMovement : MonoBehaviour
 	{
 		Quaternion targetRotation = Quaternion.LookRotation(direction);
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+	}
+
+	public void PlayFootstepFX()
+	{
+		Instantiate(FootstepFX, FootstepOffset.position,new Quaternion());
 	}
 
 
