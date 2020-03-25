@@ -5,17 +5,21 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
 	public float Speed;
+	public float RotationSpeed;
+	Vector3 direction;
+
+
 	[SerializeField]
 	Transform camera;
-
 	[SerializeField]
 	Animator animator;
 
-	public int PV;
-	public float RotationSpeed;
-	Rigidbody rb;
+	
+
+
+
+
 	public CharacterController characterController;
-	Vector3 direction;
 	public DashMovement Dashmovement;
 
 	public GameObject FootstepFX;
@@ -93,27 +97,11 @@ public class CharacterMovement : MonoBehaviour
 	}
 
 
-	public void Hit(int damage,float hitdirection)//Must move elsewhere
-	{
-		PV -= damage;
-		CheckPV();
-		animator.SetFloat("HitDirection",hitdirection);
-		animator.SetTrigger("OnHit");
-	}
 
-	public void CheckPV()//Must move elsewhere
-	{
-		if(PV <= 0)
-		{
-			Destroy(gameObject);
-		}
-	}
-
-	public void CallDash()//Must Move Elsewhere
+	public void CallDash()
 	{
 		Dashmovement.Dash(direction.normalized);
 	}
-
 
 
 
