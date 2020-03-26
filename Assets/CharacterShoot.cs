@@ -15,8 +15,8 @@ public class CharacterShoot : MonoBehaviour
 	[SerializeField]
 	Animator animator;
 
-	public FireWeapon CurrentWeapon;
-	public GameObject CurrentInstanciedWeapon;
+
+
 	[SerializeField]
 	public bool IsWeaponEquiped = false;
 	[SerializeField]
@@ -29,53 +29,31 @@ public class CharacterShoot : MonoBehaviour
 	public CharacterMovement characterMovement;
 	public CharacterInventory Inventory;
 	public Transform WeaponSocket;
+	public FireWeapon CurrentWeapon;
 
-	public FireWeapon GetCurrentWeapon()
+
+
+
+
+
+
+	public void ReloadWeapon()
 	{
-		return CurrentWeapon;
-	}
-
-	public void ChangeWeapon(WeaponData data)//Inventory ?
-	{
-		if (data != null)
-		{
-			InstantiateWeapon(data);
-			CurrentWeapon.weaponData = data;
-			CurrentWeapon.SetWeaponData(data);
-			CurrentWeapon.SetBulletEmitter(CurrentInstanciedWeapon.GetComponent<BulletEmitter>());//C'est degeulasse
-		}
-	}
-
-
-	public void InstantiateWeapon(WeaponData data)//Inventory
-	{
-		if (data != null)
-		{
-			if (CurrentInstanciedWeapon != null)
-			{
-				Destroy(CurrentInstanciedWeapon.gameObject);
-			}
-			CurrentInstanciedWeapon = Instantiate(data.WeaponModel, WeaponSocket);
-		
-			//CurrentInstanciedModel.GetComponent<BulletEmitter>();
-		}
-	}
-
-
-	public void ReloadCurrentWeapon()
-	{
-		Sound.PlayOneShot(Sound.clip );
-		WeaponData data = CurrentWeapon.weaponData;
-		CurrentWeapon.Reload(Inventory.GetAmmo(data.WeaponType, data.LoadoutMax));
+		ReloadCurrentWeapon();
 		animator.SetTrigger("Reload");
 	}
 
-
-
-	private void Start()
+	public void ReloadCurrentWeapon()
 	{
-		ReloadCurrentWeapon();
+		WeaponData data = CurrentWeapon.weaponData;
+		if (Inventory.GetAmmoQuantity(data.WeaponType) > 0)
+		{
+			Sound.PlayOneShot(Sound.clip);
+
+			CurrentWeapon.Reload();
+		}
 	}
+
 
 	public Vector3 GetShootDirection()
 	{
@@ -122,7 +100,7 @@ public class CharacterShoot : MonoBehaviour
 
 	public void Shoot()
 	{
-		if (CurrentInstanciedWeapon != null)
+		if (Inventory.CurrentInstanciedWeapon != null)
 		{
 			IsWeaponEquiped = true;
 			animator.SetBool("WeaponEquiped", IsWeaponEquiped);
