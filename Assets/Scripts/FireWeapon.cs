@@ -27,34 +27,21 @@ public class FireWeapon : MonoBehaviour
 	public CharacterShoot characterShoot;
 	public AudioSource WeaponSound;
 	public Recoil Recoil;
+	public CharacterInventory inventory;
 	public int CurrentLoadOut { get => currentLoadOut; set => currentLoadOut = value; }
-	
-	public void Reload(int ammo)
+ 
+
+
+	public void Reload()
 	{
 		if(!IsLoading)
-		StartCoroutine(Reloading(ammo));
+		StartCoroutine(Reloading());
 	}
 
-	protected void PutAmmo(int ammo)
-	{
-		AmmoToFill  =  weaponData.LoadoutMax - CurrentLoadOut;
-
-
-		if ( AmmoToFill > ammo)
-		{
-			CurrentLoadOut += ammo;
-			ammo = 0;
-		}
-		else
-		{
-			CurrentLoadOut += AmmoToFill;
-			ammo -= AmmoToFill;
-		}
-	}
 
 	private bool CheckAmmoCount()
 	{
-		if((CurrentLoadOut - 1) >= 0)
+		if((weaponData.CurrentLoader -1) >= 0)
 		{
 			return true;
 		}
@@ -70,7 +57,7 @@ public class FireWeapon : MonoBehaviour
 		{
 			OnCoolDown = true;
 			bulletEmitter.Shoot(characterShoot.GetShootDirection().normalized, weaponData);
-			CurrentLoadOut -= 1;
+			weaponData.LostBullets(1);
 			WeaponSound.Play();
 			StartCoroutine(ShootCoolDown());
 			Recoil.PlayRecoil(weaponData);
@@ -91,20 +78,20 @@ public class FireWeapon : MonoBehaviour
 
 	public void OnBeginReloadAnimation()
 	{
-		IsLoading = true;
+		//IsLoading = true;
 	}
 
 	public void OnEndReloadAnimation()
 	{
-		IsLoading = false;
+		//IsLoading = false;
 	}
 
-	IEnumerator Reloading(int ammo)
+	IEnumerator Reloading()
 	{
-
+		IsLoading = true;
 		yield return new  WaitForSeconds(weaponData.ReloadTime);
-		PutAmmo(ammo);
-		
+		weaponData.AddBullet(inventory.GetAmmoForReload());
+		IsLoading = false;
 	}
 
 	IEnumerator ShootCoolDown()

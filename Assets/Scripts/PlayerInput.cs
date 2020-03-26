@@ -32,7 +32,7 @@ public class PlayerInput : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			PlayerShoot.ReloadCurrentWeapon();
+			PlayerShoot.ReloadWeapon();
 		}
 
 		if (Input.GetKeyDown(KeyCode.A))
