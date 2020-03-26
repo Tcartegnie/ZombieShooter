@@ -15,6 +15,7 @@ public class WeaponData : ScriptableObject
 	public int LoadoutMax;
 	public float ReloadTime;
 	public int BulletPerShoot;
+	public int CurrentLoader;
 	public float CoolDownBetweenBullet;
 	public int MaxAmmo;
 	public Vector2 Spread;
@@ -35,6 +36,18 @@ public class WeaponData : ScriptableObject
 	public void SetWeaponAsBuyed()
 	{
 		Buyed = true;
+	}
+
+	public void LostBullets(int BulletNumber)
+	{
+		CurrentLoader -= BulletNumber;
+		CurrentLoader = Mathf.Clamp(CurrentLoader, 0, LoadoutMax);
+	}
+
+	public void AddBullet(int BulletNumber)
+	{
+		CurrentLoader += BulletNumber;
+		CurrentLoader = Mathf.Clamp(CurrentLoader, 0, LoadoutMax);
 	}
 	
 }
