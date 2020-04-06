@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-	public CharacterMovement PlayerMovement;
+	public PlayerMovement PlayerMovement;
 	public CharacterShoot PlayerShoot;
-	public CharacterInventory CharacterInventory;
+	public PlayerInventory CharacterInventory;
 	public WeaponShop Shop;
 	float ForwardInput;
 	float LateralInput;
