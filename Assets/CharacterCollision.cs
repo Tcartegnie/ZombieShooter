@@ -8,20 +8,25 @@ public class CharacterCollision : MonoBehaviour
 	public GameObject Bloodparticles;
 	public CharacterStatistique stats;
 
-	private void OnCollisionEnter(Collision collision)
+	private void OnCollisionEnter(UnityEngine.Collision collision)
 	{
 		if (collision.gameObject.tag == ("Bullet"))
 		{
-			stats.Hit(collision.gameObject.GetComponent<Bullet>().GetDamage(),0);
-			Destroy(collision.gameObject);
-			BloodEmission(collision.transform);
-			Sounds.PlayRandomSound("ZombieHit");
+			Hit(collision);
 		}
 	}
 
+	public void Hit(UnityEngine.Collision collision)
+	{
+		stats.Hit(collision.gameObject.GetComponent<Bullet>().GetDamage());
+		Destroy(collision.gameObject);
+		PlayFx(collision.transform);
+		Sounds.PlayRandomSound("ZombieHit");
+	}
 
-	public void BloodEmission(Transform ImpactPoint)
+	public void PlayFx(Transform ImpactPoint)
 	{
 		Instantiate(Bloodparticles, ImpactPoint.position, Quaternion.LookRotation(ImpactPoint.forward));
 	}
+
 }
