@@ -20,9 +20,4 @@ public class SoundDatabase : MonoBehaviour
 		return soundListData.Find(list => list.NameList == Name);
 	}
 
-	public AudioClip GetRandomSound(string SoundListName,string SoundName)
-	{
-		SoundsListData data = GetSoundListsByName(SoundListName);
-		return data.GetRandomSound(SoundName);
-	}
 }
