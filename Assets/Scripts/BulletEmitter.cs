@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletEmitter : MonoBehaviour
 {
 	public ParticleSystem GunParicle;
+	public UIFXManager UiFxManager;
 
 	/*
 		- Dans l'idéal, il faudrait retiré MonoBehaviour du script
@@ -15,7 +16,7 @@ public class BulletEmitter : MonoBehaviour
 	public Transform Canon;
 
 
-	public void Shoot(Vector3 Direction,WeaponData data)
+	public void Shoot(Vector3 Direction, WeaponData data)
 	{
 		StartCoroutine(ShootBullets(Direction, data));
 	}
@@ -31,9 +32,11 @@ public class BulletEmitter : MonoBehaviour
 		return Canon.forward + RandomSpread;
 	}
 
+
 	public IEnumerator ShootBullets(Vector3 Direction,WeaponData data)
 	{
 		GunParicle.Play();
+		UiFxManager.PlayFireFX();
 		for (int i = 0; i < data.BulletPerShoot; i++)
 		{
 			SetCanonScope(Direction);
@@ -41,7 +44,8 @@ public class BulletEmitter : MonoBehaviour
 			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data.Spread)));
 			yield return new WaitForSeconds(data.CoolDownBetweenBullet);
 		}
-	
+		UiFxManager.StopFireFX();
+
 
 	}
 
