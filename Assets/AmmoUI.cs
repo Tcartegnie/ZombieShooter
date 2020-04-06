@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AmmoUI : MonoBehaviour
 {
 	public FireWeapon CurrentWeapon;
-	public CharacterInventory characterInventory;
+	public PlayerInventory characterInventory;
 	public Text AmmoQuantity;
 	public Text AmmoQuantityMax;
 	public Image WeaponPicture;
