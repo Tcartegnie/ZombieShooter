@@ -10,10 +10,6 @@ public class SoundsListData : ScriptableObject
 
 	Dictionary<string,List<AudioClip>> Multiplesoundsdatas = new Dictionary<string, List<AudioClip>>();
 
-	public void Awake()
-	{
-		SetSoundDictionary();
-	}
 
 	public void SetSoundDictionary()
 	{
