@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class UIInventorySlots : MonoBehaviour
 {
 
-	public WeaponDataBase weaponDataBase;
+	public WeaponDataList weaponDataBase;
 	public List<UISlots> WeaponSlots = new List<UISlots>();
 
 	int SlotID;
