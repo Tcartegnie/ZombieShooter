@@ -27,7 +27,7 @@ public class FireWeapon : MonoBehaviour
 	public CharacterShoot characterShoot;
 	public AudioSource WeaponSound;
 	public Recoil Recoil;
-	public CharacterInventory inventory;
+	public PlayerInventory inventory;
 	public int CurrentLoadOut { get => currentLoadOut; set => currentLoadOut = value; }
  
 
