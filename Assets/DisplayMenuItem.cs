@@ -16,12 +16,14 @@ public class DisplayMenuItem : MonoBehaviour
 
 	public void TurnOnInventory()
 	{
+		Cursor.visible = true;
 		gameObject.SetActive(true);
 		IsEneable = true;
 	}
 
 	public void TurnOffInventory()
 	{
+		Cursor.visible = false;
 		gameObject.SetActive(false);
 		IsEneable = false;
 	}
