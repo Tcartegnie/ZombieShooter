@@ -12,19 +12,27 @@ public class Zombie : MonoBehaviour
 	[SerializeField]
 	Animator animator;
 
+	public bool StalkPlayer;
+
 	public GameObject FootstepFX;
 
 	public void Update()
 	{
-		SetTarget();
-		CheckAttackDistance();
+		if (StalkPlayer)
+		{
+			SetTarget();
+			CheckAttackDistance();
+		}
 	}
 
 	public void SetTarget()
 	{
-		agent.SetDestination(target.position);
+		if (StalkPlayer)
+		{
+			agent.SetDestination(target.position);
 
-		animator.SetFloat("Speed", agent.velocity.magnitude);
+			animator.SetFloat("Speed", agent.velocity.magnitude);
+		}
 	}
 
 
@@ -50,13 +58,16 @@ public class Zombie : MonoBehaviour
 
 	public void AttackTarget()
 	{
-		if (Vector3.Distance(transform.position, target.position) < 2)
+		if (StalkPlayer)
 		{
-			Vector3 test = transform.position - target.position;
-			float dotproduct = Vector3.Dot(test,target.right);
-			target.GetComponent<CharacterStatistique >().Hit(2,dotproduct);
+			if (GetTargetDistance() < 2)
+			{
+				Vector3 test = transform.position - target.position;
+				float dotproduct = Vector3.Dot(test, target.right);
+				target.GetComponent<CharacterStatistique>().Hit(2);
+			}
+			Sounds.PlayRandomSound("AttackCAC");
 		}
-		Sounds.PlayRandomSound("AttackCAC");
 	}
 	
 
@@ -75,11 +86,14 @@ public class Zombie : MonoBehaviour
 		return ClosestPosition;
 	}
 
-
-
 	public void PlayFootstepFX()
 	{
 		Instantiate(FootstepFX, transform.position, new Quaternion());
+	}
+
+	public void RemoveTarget()
+	{
+		StalkPlayer = false;
 	}
 
 }
