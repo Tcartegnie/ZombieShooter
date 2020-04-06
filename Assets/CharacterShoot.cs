@@ -26,11 +26,10 @@ public class CharacterShoot : MonoBehaviour
 	// Update is called once per frame
 	Vector3 ShootDirection;
 
-	public CharacterMovement characterMovement;
-	public CharacterInventory Inventory;
+	public PlayerMovement characterMovement;
+	public PlayerInventory Inventory;
 	public Transform WeaponSocket;
 	public FireWeapon CurrentWeapon;
-
 
 
 
@@ -108,7 +107,7 @@ public class CharacterShoot : MonoBehaviour
 			CurrentHoldWeaponCoolDown = HoldWeaponCoolDown;
 			TurnInShootDirection();
 			CurrentWeapon.CallShoot();
-			
+			//scope.PlayScopeFX();
 		}
 	}
 
