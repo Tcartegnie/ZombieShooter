@@ -23,9 +23,6 @@ public class Bullet : MonoBehaviour
 
 	public void OnCollisionEnter(Collision collision)
 	{
-		Renderer renderer = collision.gameObject.GetComponent<Renderer>();
-		Material mat = renderer.material;
-		Debug.Log(mat.name);
 		Destroy(gameObject);
 
 	}
