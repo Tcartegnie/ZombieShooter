@@ -6,26 +6,26 @@ public class ZombieWaveManager : MonoBehaviour
 {
 	public Transform[] ZombiesSpawn;
 	public List<int> ZombieWave;
-	public PlayerStatistique playerStatistique;
+	public float ZombieSpawnTime;
+	public Transform target;
+	ZombieFactory factory;
 
 
 	public void Start()
 	{
-		InstanciatedZombiesWave(ZombieWave[0]);
-
+		factory = ZombieFactory.instance;
+	 StartCoroutine(InstanciatedZombiesWave(ZombieWave[0]));
+	
 	}
 
-	public void InstanciatedZombiesWave(int ZombieNumber)
+	public IEnumerator InstanciatedZombiesWave(int ZombieNumber)
 	{
 		for(int i= 0; i < ZombieNumber;i++ )
 		{
-			InstantiateZombie();
+			GameObject zombie = factory.InstanciateEntityByName("Zombie", ZombiesSpawn[Random.Range(0,ZombiesSpawn.Length)].position);
+			zombie.GetComponentInChildren<Zombie>().target = target;
+			yield return new WaitForSeconds(ZombieSpawnTime);
 		}
 	}
 
-	public void InstantiateZombie()
-	{
-
-	
-	}
 }
