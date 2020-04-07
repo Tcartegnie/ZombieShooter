@@ -86,7 +86,7 @@ public class EndGameScript : MonoBehaviour
 		TryAgaine.gameObject.SetActive(true);
 		Continue.gameObject.SetActive(true);
 		ReturnToMainMenu.gameObject.SetActive(true);
-
+		Cursor.visible = true;
 		//Time.timeScale = 0;
 	}
 
