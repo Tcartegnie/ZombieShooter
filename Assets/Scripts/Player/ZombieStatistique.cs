@@ -10,13 +10,13 @@ public class ZombieStatistique : CharacterStatistique
 	public override void CallDeath()
 	{
 		base.CallDeath();
-		ZombieClip.SetTrigger("Death");
+		ZombieClip.enabled = false;
 	}
 
 
 	public void Death()
 	{
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	
 	}
 }
