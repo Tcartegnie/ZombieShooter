@@ -15,9 +15,20 @@ public class PlayerStatistique : CharacterStatistique
 		lifebar.SetBarValue(GetComputeScore());
 	}
 
-	public override void Death()
+	public override void Hit(int damage)
 	{
-		ondeath();
-		gameObject.SetActive(false);
+		base.Hit(damage);
+		PlayHitAnimation(0);
+	}
+
+	public override void CallDeath()
+	{
+		if (IsAlive)
+		{
+			ondeath();
+			gameObject.SetActive(false);
+			IsAlive = false;
+		}
+
 	}
 }
