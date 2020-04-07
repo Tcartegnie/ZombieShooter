@@ -8,6 +8,7 @@ public class Zombie : MonoBehaviour
 	public SoundPlayer Sounds;
 	public NavMeshAgent agent;
 	public Transform target;
+	public float AttackLenght;
 
 	[SerializeField]
 	Animator animator;
@@ -15,6 +16,11 @@ public class Zombie : MonoBehaviour
 	public bool StalkPlayer;
 
 	public GameObject FootstepFX;
+
+	public void Start()
+	{
+		animator.SetInteger("IDAttack", Random.Range(0, 2));
+	}
 
 	public void Update()
 	{
@@ -27,12 +33,11 @@ public class Zombie : MonoBehaviour
 
 	public void SetTarget()
 	{
-		if (StalkPlayer)
-		{
+	
 			agent.SetDestination(target.position);
 
 			animator.SetFloat("Speed", agent.velocity.magnitude);
-		}
+	
 	}
 
 
@@ -45,14 +50,16 @@ public class Zombie : MonoBehaviour
 
 	public void CheckAttackDistance()
 	{
-		if( GetTargetDistance() < 2)
+		if( GetTargetDistance() < AttackLenght)
 		{
+			transform.LookAt(target);
 			CallAttack();
 		}
 	}
 
 	public void CallAttack()
 	{
+		agent.velocity = Vector3.zero;
 		animator.SetTrigger("Attack");
 	}
 
@@ -60,12 +67,13 @@ public class Zombie : MonoBehaviour
 	{
 		if (StalkPlayer)
 		{
-			if (GetTargetDistance() < 2)
+			if (GetTargetDistance() < AttackLenght)
 			{
 				Vector3 test = transform.position - target.position;
 				float dotproduct = Vector3.Dot(test, target.right);
 				target.GetComponent<CharacterStatistique>().Hit(2);
 			}
+			animator.SetInteger("IDAttack", Random.Range(0, 2));
 			Sounds.PlayRandomSound("AttackCAC");
 		}
 	}
@@ -94,6 +102,16 @@ public class Zombie : MonoBehaviour
 	public void RemoveTarget()
 	{
 		StalkPlayer = false;
+	}
+
+	public void PauseNavMeshAgent()
+	{
+		agent.isStopped = true;
+	}
+
+	public void EneableNavMeshAgent()
+	{
+		agent.isStopped = false;
 	}
 
 }
