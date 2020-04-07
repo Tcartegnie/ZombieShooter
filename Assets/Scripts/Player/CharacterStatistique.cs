@@ -7,8 +7,13 @@ public class CharacterStatistique : MonoBehaviour
 	public float PV;
 	public float MaxPV;
 	[SerializeField]
-	Animator animator;
+	protected Animator animator;
+	public bool IsAlive = true;
 
+	public void Start()
+	{
+		IsAlive = true;
+	}
 
 
 	public void Update()
@@ -19,16 +24,18 @@ public class CharacterStatistique : MonoBehaviour
 		}
 	}
 
+
+
 	public virtual void ManageLifeBar(){}
 
 
-	public void Hit(int damage)
+	public virtual void Hit(int damage)
 	{
 		PV -= damage;
 		ManageLifeBar();
 		if(CheckPV())
 		{
-			Death();
+			CallDeath();
 		}
 	}
 
@@ -60,8 +67,9 @@ public class CharacterStatistique : MonoBehaviour
 
 	
 
-	public virtual void Death()
+	public virtual void CallDeath()
 	{
+
 	}
 
 }
