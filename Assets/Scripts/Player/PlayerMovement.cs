@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 	public float Speed;
 	public float RotationSpeed;
-	Vector3 direction;
+	Vector3 WalkingDirection;
 
 
 	[SerializeField]
@@ -35,20 +35,24 @@ public class PlayerMovement : MonoBehaviour
 		PlayRunAnimation(ForwardInput,LateralInput);
 	}
 
-	
+	public void SetAnimationDirection(Vector2 Direction)
+	{
+		animator.SetFloat("HorizontalStrafe", Direction.x);
+		animator.SetFloat("VerticalStrafe", Direction.y);
+	}
 
 	public void SetDirection(float ForwardInput, float LateralInput)
 	{
-		direction = GetForwardDirection(ForwardInput) + GetLateralDirection(LateralInput);
+		WalkingDirection = GetForwardDirection(ForwardInput) + GetLateralDirection(LateralInput);
 	}
 	
 	public void SetDirection(Vector3 directionToGo)
 	{
-		direction = directionToGo;
+		WalkingDirection = directionToGo;
 	}
 	public void GoToDirection()
 	{
-		characterController.SimpleMove(direction.normalized * Speed);
+		characterController.SimpleMove(WalkingDirection.normalized * Speed);
 	}
 
 	public Vector3 GetForwardDirection(float InputValue)
@@ -77,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public Vector3 GetWalkingDirection()
 	{
-		return direction;
+		return WalkingDirection;
 	}
 
 	public void LookInWalkingDirection()
@@ -100,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void CallDash()
 	{
-		Dashmovement.Dash(direction.normalized);
+		Dashmovement.Dash(WalkingDirection.normalized);
 	}
 
 
