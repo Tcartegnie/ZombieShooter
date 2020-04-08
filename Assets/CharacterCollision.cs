@@ -7,7 +7,9 @@ public class CharacterCollision : MonoBehaviour
 	public SoundPlayer Sounds;
 	public GameObject Bloodparticles;
 	public CharacterStatistique stats;
-
+	public Rigidbody hips;
+	Transform LastColliderHit;
+	public float ReplusStrengh;
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == ("Bullet"))
@@ -20,6 +22,7 @@ public class CharacterCollision : MonoBehaviour
 	{
 		stats.Hit(collision.GetComponent<Bullet>().GetDamage());
 		PlayFx(collision.transform);
+		LastColliderHit = collision.transform;
 	}
 
 	public void PlayFx(Transform ImpactPoint)
@@ -27,4 +30,12 @@ public class CharacterCollision : MonoBehaviour
 		Instantiate(Bloodparticles, ImpactPoint.position, Quaternion.LookRotation(ImpactPoint.forward));
 	}
 
+	public Transform GetLastColliderHit()
+	{
+		return LastColliderHit;
+	}
+	public void Push()
+	{
+		hips.AddForce(LastColliderHit.forward * ReplusStrengh);
+	}
 }
