@@ -49,8 +49,13 @@ public class ScaleTransition : TransitionFX
 
 	}
 
+	public IEnumerator ScopeShootFX()
+	{
+		yield return StartCoroutine(GrowTheScope());
+		yield return StartCoroutine(FlatTheScope());
+	}
 
-	public override void PlayFX()
+	public override void PlayFXForward()
 	{
 
 		StartCoroutine(GrowTheScope());
@@ -62,6 +67,8 @@ public class ScaleTransition : TransitionFX
 
 	}
 
-	
-
+	public override void PlayFX()
+	{
+		StartCoroutine(ScopeShootFX());
+	}
 }

@@ -46,9 +46,14 @@ public class ColorTranstion : TransitionFX
 		yield return StartCoroutine(TransitToBasicColor());
 	}
 
-	public override void PlayFX()
+	public override void PlayFXForward()
 	{
 		StartCoroutine(TransitToFXcolor());
+	}
+
+	public override void PlayFX()
+	{
+		StartCoroutine(ScopeShootFX());
 	}
 
 	public override void RevertFX()
