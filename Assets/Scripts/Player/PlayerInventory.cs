@@ -17,8 +17,9 @@ public class PlayerInventory : MonoBehaviour
 	List<WeaponData> Weapons;
 	public GameObject CurrentInstanciedWeapon;
 	public UIFXManager FXmanager;
+	public Animator animator;
 
-
+	public int Money;
 
 	Dictionary<WeaponType, int> BulletDictionary = new Dictionary<WeaponType, int>();
 
@@ -53,12 +54,14 @@ public class PlayerInventory : MonoBehaviour
 	{
 		if (slots.GetWeaponName(slotiD) != null)
 		{
+			animator.SetBool("WeaponEquiped", false);
 			string WeaponName = slots.GetWeaponName(slotiD);
 			WeaponData data = weapons.GetWeaponByName(WeaponName);
 			//characterShoot.ChangeWeapon(data);
 			ChangeWeapon(data);
 			AmmoUI.ChangeWeapon(CurrentWeapon);
-		
+			animator.SetInteger("WeaponTypeID",(int)data.WeaponType);
+			animator.SetBool("WeaponEquiped", true);
 		}
 		
 	}
