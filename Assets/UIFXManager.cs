@@ -10,7 +10,7 @@ public class UIFXManager : MonoBehaviour
 	{
 		foreach(TransitionFX fx in FireFx)
 		{
-			fx.PlayFX();
+			fx.PlayFXForward();
 		}
 	}
 
