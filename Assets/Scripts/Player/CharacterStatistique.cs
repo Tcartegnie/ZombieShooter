@@ -35,7 +35,7 @@ public class CharacterStatistique : MonoBehaviour
 		ManageLifeBar();
 		if(CheckPV())
 		{
-			CallDeath();
+			Death();
 		}
 	}
 
@@ -67,7 +67,7 @@ public class CharacterStatistique : MonoBehaviour
 
 	
 
-	public virtual void CallDeath()
+	public virtual void Death()
 	{
 
 	}

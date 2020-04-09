@@ -21,7 +21,7 @@ public class PlayerStatistique : CharacterStatistique
 		PlayHitAnimation(0);
 	}
 
-	public override void CallDeath()
+	public override void Death()
 	{
 		if (IsAlive)
 		{

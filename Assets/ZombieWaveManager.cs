@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ZombieWaveManager : MonoBehaviour
 {
+	public ScoreManager scoreManager;
 	public Transform[] ZombiesSpawn;
 	public List<int> ZombieWave;
 	public float ZombieSpawnTime;
@@ -14,8 +15,7 @@ public class ZombieWaveManager : MonoBehaviour
 	public void Start()
 	{
 		factory = ZombieFactory.instance;
-	 StartCoroutine(InstanciatedZombiesWave(ZombieWave[0]));
-	
+		StartCoroutine(InstanciatedZombiesWave(ZombieWave[0]));
 	}
 
 	public IEnumerator InstanciatedZombiesWave(int ZombieNumber)
@@ -24,8 +24,15 @@ public class ZombieWaveManager : MonoBehaviour
 		{
 			GameObject zombie = factory.InstanciateEntityByName("Zombie", ZombiesSpawn[Random.Range(0,ZombiesSpawn.Length)].position);
 			zombie.GetComponentInChildren<Zombie>().target = target;
+			zombie.GetComponentInChildren<ZombieStatistique>().ZombieWavesManager = this;
 			yield return new WaitForSeconds(ZombieSpawnTime);
 		}
+	}
+	
+	public void OnZombieDeath()
+	{
+		scoreManager.AddScore(10);
+		scoreManager.UpdateScore();
 	}
 
 }

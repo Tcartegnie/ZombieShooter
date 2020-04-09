@@ -7,15 +7,19 @@ public class ZombieStatistique : CharacterStatistique
 {
 	public Animator ZombieClip;
 	public NavMeshAgent agent;
-	public Zombie zombie;
-	public ZombieCollision collider;
+	public Zombie Zombie;
+	public ZombieCollision Collider;
 	public Collider ColliderBullet;
-	public override void CallDeath()
+	public ZombieWaveManager ZombieWavesManager; 
+
+	public override void Death()
 	{
-		base.CallDeath();
+		base.Death();
 		ZombieClip.enabled = false;
-		zombie.PauseNavMeshAgent();
-		collider.Push();
+		Zombie.PauseNavMeshAgent();
+		Collider.Push();
 		ColliderBullet.enabled = (false);
+		ZombieWavesManager.OnZombieDeath();
 	}
+
 }
