@@ -83,7 +83,7 @@ public class CharacterShoot : MonoBehaviour
 		else
 		{
 			IsWeaponEquiped = false;
-			animator.SetBool("WeaponEquiped", IsWeaponEquiped);
+			//animator.SetBool("WeaponEquiped", IsWeaponEquiped);
 		}
 
 	}
@@ -102,7 +102,7 @@ public class CharacterShoot : MonoBehaviour
 		if (Inventory.CurrentInstanciedWeapon != null)
 		{
 			IsWeaponEquiped = true;
-			animator.SetBool("WeaponEquiped", IsWeaponEquiped);
+			//animator.SetBool("WeaponEquiped", IsWeaponEquiped);
 		
 			CurrentHoldWeaponCoolDown = HoldWeaponCoolDown;
 			TurnInShootDirection();
