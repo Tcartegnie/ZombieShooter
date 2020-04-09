@@ -24,7 +24,6 @@ public class PlayerInput : MonoBehaviour
 	void CheckShootInput()
 	{
 		PlayerShoot.CheckCoolDownWeaponHolding();
-
 		if (Input.GetMouseButtonUp(0))
 		{
 			PlayerShoot.Shoot();
