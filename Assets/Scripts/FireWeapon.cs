@@ -5,8 +5,9 @@ using UnityEngine;
 public enum WeaponType
 {
 	Gun,
+	Rifle,
 	Shotgun,
-	Rifle
+
 }
 public class FireWeapon : MonoBehaviour
 {
