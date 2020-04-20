@@ -5,14 +5,45 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+
+	public DebugUI debugUI;
+
 	int Score;
 	public Text ZombieCount;
+	public Text ScoreMultiplicator;
 	public ScoreDisplayer MoneyDisplay;
 	public ScoreDisplayer ScoreDisplay;
 
-	public void AddScore(int score)
+	int ZombieCountKiller = 0;
+	float ZombieMultiplicatorCount = 1;
+
+	public void Start()
 	{
-		Score += score;
+		DisplayZombieCount();
+		DisplayMultiplicator();
+	}
+
+	public void AddCountKiller()
+	{
+		ZombieCountKiller += 1;
+		debugUI.DisplayZombieCount(ZombieCountKiller);
+		CheckZombieCountKiller();
+		DisplayZombieCount();
+	}
+
+	public void CheckZombieCountKiller()
+	{
+		if(ZombieCountKiller % 5 == 0)
+		{
+			ZombieMultiplicatorCount += 0.5f;
+			DisplayMultiplicator();
+		}
+
+	}
+
+	public void AddScore(float score)
+	{
+		Score += (int)(score * ZombieMultiplicatorCount);
 	}
 
 	public int GetScore()
@@ -29,21 +60,25 @@ public class ScoreManager : MonoBehaviour
 	public void DisplayScore(int moneycount)
 	{
 		ScoreDisplay.UpdateScore(moneycount);
-		ScoreDisplay.HightLightText();
-		ScoreDisplay.ScaleText();
+		ScoreDisplay.HightLightRect();
+		ScoreDisplay.ScaleRect();
 	}
 
 	public void DisplayMoneyCount(int moneycount)
 	{
 		MoneyDisplay.UpdateScore(moneycount);
-		MoneyDisplay.HightLightText();
-		MoneyDisplay.ScaleText();
+		MoneyDisplay.HightLightRect();
+		MoneyDisplay.ScaleRect();
 	}
 
-	public void DisplayZombieCount(int zombieCount)
+	public void DisplayZombieCount()
 	{
-		ZombieCount.text = zombieCount.ToString();
+		ZombieCount.text = ZombieCountKiller + "/" + Mathf.Infinity;
 	}
 
+	public void DisplayMultiplicator()
+	{
+		ScoreMultiplicator.text = "x" + ZombieMultiplicatorCount;
+	}
 
 }

@@ -13,12 +13,12 @@ public class ScoreDisplayer : MonoBehaviour
 		text.text = score.ToString();
 	}
 	
-	public void HightLightText()
+	public void ScaleRect()
 	{
 		ScaleTransition.PlayFX();
 	}
 
-	public void ScaleText()
+	public void HightLightRect()
 	{
 		ColorTransition.PlayFX();
 	}
