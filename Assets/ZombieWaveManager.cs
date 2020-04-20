@@ -32,6 +32,7 @@ public class ZombieWaveManager : MonoBehaviour
 	public void OnZombieDeath()
 	{
 		scoreManager.AddScore(10);
+		scoreManager.AddCountKiller();
 		scoreManager.UpdateScore();
 	}
 
