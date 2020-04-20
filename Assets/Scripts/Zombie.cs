@@ -74,7 +74,7 @@ public class Zombie : MonoBehaviour
 				target.GetComponent<CharacterStatistique>().Hit(2);
 			}
 			animator.SetInteger("IDAttack", Random.Range(0, 2));
-			Sounds.PlayRandomSound("AttackCAC");
+			//Sounds.PlayRandomSound("AttackCAC");
 		}
 	}
 	
