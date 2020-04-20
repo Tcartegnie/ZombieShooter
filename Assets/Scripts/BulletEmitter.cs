@@ -24,6 +24,7 @@ public class BulletEmitter : MonoBehaviour
 	public void SetCanonScope(Vector3 direction)
 	{
 		Canon.rotation = Quaternion.LookRotation(direction);
+		Debug.DrawRay(transform.position, direction, Color.red, Mathf.Infinity);
 	}
 
 	public Vector3 GetSpreadDirection(Vector3 Spread)

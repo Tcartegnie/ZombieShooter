@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum WeaponType
 {
+	NoWeaopn = -1,
 	Gun,
 	Rifle,
 	Shotgun,
@@ -29,6 +30,7 @@ public class FireWeapon : MonoBehaviour
 	public AudioSource WeaponSound;
 	public Recoil Recoil;
 	public PlayerInventory inventory;
+
 	public int CurrentLoadOut { get => currentLoadOut; set => currentLoadOut = value; }
  
 
@@ -57,7 +59,7 @@ public class FireWeapon : MonoBehaviour
 		if(!OnCoolDown && CheckAmmoCount() && !IsLoading)
 		{
 			OnCoolDown = true;
-			bulletEmitter.Shoot(characterShoot.GetShootDirection().normalized, weaponData);
+			bulletEmitter.Shoot(-characterShoot.GetShootDirection(), weaponData);
 			weaponData.LostBullets(1);
 			WeaponSound.Play();
 			StartCoroutine(ShootCoolDown());

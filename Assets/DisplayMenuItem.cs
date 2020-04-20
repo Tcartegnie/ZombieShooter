@@ -17,6 +17,7 @@ public class DisplayMenuItem : MonoBehaviour
 	public void TurnOnInventory()
 	{
 		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
 		gameObject.SetActive(true);
 		IsEneable = true;
 	}
@@ -24,6 +25,7 @@ public class DisplayMenuItem : MonoBehaviour
 	public void TurnOffInventory()
 	{
 		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 		gameObject.SetActive(false);
 		IsEneable = false;
 	}
