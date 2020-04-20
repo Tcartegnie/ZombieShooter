@@ -21,13 +21,17 @@ public class PlayerInventory : MonoBehaviour
 
 	public int Money;
 
+	public ScoreManager ScoreManager;
+
 	Dictionary<WeaponType, int> BulletDictionary = new Dictionary<WeaponType, int>();
 
 
 	public void Start()
 	{
 		GiveAmmo();
+		ChangeWeapon(GetCurrentWeapon().weaponData);
 	}
+
 
 	public void Update()
 	{
@@ -50,18 +54,22 @@ public class PlayerInventory : MonoBehaviour
 		}
 	}
 
+	public void HoldWeapon()
+	{
+		WeaponData data = weapons.GetWeaponByName("NoWeapon");
+		ChangeWeapon(data);
+	}
+
 	public void EquipeWeapon(int slotiD)
 	{
 		if (slots.GetWeaponName(slotiD) != null)
 		{
-			animator.SetBool("WeaponEquiped", false);
 			string WeaponName = slots.GetWeaponName(slotiD);
 			WeaponData data = weapons.GetWeaponByName(WeaponName);
 			//characterShoot.ChangeWeapon(data);
 			ChangeWeapon(data);
-			AmmoUI.ChangeWeapon(CurrentWeapon);
-			animator.SetInteger("WeaponTypeID",(int)data.WeaponType);
-			animator.SetBool("WeaponEquiped", true);
+			
+
 		}
 		
 	}
@@ -80,9 +88,13 @@ public class PlayerInventory : MonoBehaviour
 			{
 				Destroy(CurrentInstanciedWeapon.gameObject);
 			}
-			CurrentInstanciedWeapon = Instantiate(data.WeaponModel, WeaponSocket);
+			if (data.WeaponModel != null)
+			{
+				CurrentInstanciedWeapon = Instantiate(data.WeaponModel, WeaponSocket);
+				CurrentInstanciedWeapon.GetComponent<BulletEmitter>().UiFxManager = FXmanager;
+				CurrentWeapon.SetBulletEmitter(CurrentInstanciedWeapon.GetComponent<BulletEmitter>());//C'est degeulasse
+			}
 
-			//CurrentInstanciedModel.GetComponent<BulletEmitter>();
 		}
 	}
 
@@ -91,17 +103,20 @@ public class PlayerInventory : MonoBehaviour
 	{
 		if (data != null)
 		{
+			animator.SetBool("WeaponEquiped", false);
+		
 			InstantiateWeapon(data);
 			CurrentWeapon.SetWeaponData(data);
-			CurrentWeapon.SetBulletEmitter(CurrentInstanciedWeapon.GetComponent<BulletEmitter>());//C'est degeulasse
-			CurrentInstanciedWeapon.GetComponent<BulletEmitter>().UiFxManager = FXmanager;
-
+			animator.SetInteger("WeaponTypeID", (int)data.WeaponType);
+			animator.SetBool("WeaponEquiped", true);
+			AmmoUI.ChangeWeapon(CurrentWeapon);
 		}
 	}
 
 
 	public void GiveAmmo()//Inventory ?
 	{
+		SetAmmo(WeaponType.NoWeaopn,0);
 		SetAmmo(WeaponType.Shotgun, 60);
 		SetAmmo(WeaponType.Gun, 120);
 		SetAmmo(WeaponType.Rifle, 300);
@@ -155,5 +170,15 @@ public class PlayerInventory : MonoBehaviour
 	{
 		return InventoryUI.MenuIsEnable();
 	}
+
+	public void AddMoney(int value)
+	{
+		Money += value;
+		ScoreManager.DisplayMoneyCount(Money);
+	}
+
+
+
+
 
 }
