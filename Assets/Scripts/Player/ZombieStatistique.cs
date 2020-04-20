@@ -10,7 +10,9 @@ public class ZombieStatistique : CharacterStatistique
 	public Zombie Zombie;
 	public ZombieCollision Collider;
 	public Collider ColliderBullet;
-	public ZombieWaveManager ZombieWavesManager; 
+	public ZombieWaveManager ZombieWavesManager;
+	public MoneyDropper money;
+	public float DestroyBodyTimer;
 
 	public override void Death()
 	{
@@ -20,6 +22,14 @@ public class ZombieStatistique : CharacterStatistique
 		Collider.Push();
 		ColliderBullet.enabled = (false);
 		ZombieWavesManager.OnZombieDeath();
+		money.DropMoney();
+		StartCoroutine(DestroyCorps());
+	}
+
+	public IEnumerator DestroyCorps()
+	{
+		yield return new WaitForSeconds(DestroyBodyTimer);
+		Destroy(gameObject);
 	}
 
 }
