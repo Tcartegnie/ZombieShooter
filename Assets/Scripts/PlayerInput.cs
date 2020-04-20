@@ -36,7 +36,7 @@ public class PlayerInput : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.A))
 		{
-			CharacterInventory.GiveAmmo();
+			CharacterInventory.HoldWeapon();
 		}
 
 	}
