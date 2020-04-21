@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ZombieType
+{
+	Normal,
+}
 
 public class ZombieFactory : MonoBehaviour
 {
@@ -33,11 +37,11 @@ public class ZombieFactory : MonoBehaviour
 		return GO;
 	}
 
-	public GameObject InstanciateEntityByName(string name,Vector3 WorldPosition)
+	public GameObject InstanciateEntityByName(ZombieType type,Vector3 WorldPosition)
 	{
-		switch(name)
+		switch(type)
 		{
-			case ("Zombie"):
+			case (ZombieType.Normal):
 				return InstanciateZombie(WorldPosition);
 			
 		}

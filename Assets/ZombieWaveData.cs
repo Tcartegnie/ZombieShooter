@@ -3,17 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ZombieWaveData : MonoBehaviour
+[CreateAssetMenu(fileName = "ZombieWave", menuName = "ScriptableObjects/ZombieWave", order = 1)]
+public class ZombieWaveData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public List<ZombieType> type;
 }
