@@ -7,9 +7,8 @@ public class ScopeCursor : MonoBehaviour
 {
 	public RectTransform CursorRect;
 	public RectTransform CursorTransform;
-	public float CursorRadius;
 	public Vector3 CursorOffset;
-	public float AxisSensitivity;
+	public float CursorCircleRadius;
 
 	private void Start()
 	{
@@ -20,7 +19,6 @@ public class ScopeCursor : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		//ComputeCursorPosition();
 		CursorTransform.position = CursorRect.position + ((CursorOffset));
 	}
 
@@ -31,8 +29,7 @@ public class ScopeCursor : MonoBehaviour
 
 	 void ComputeCursorPosition(Vector3 ShootDirection)
 	{
-		 CursorOffset = new Vector2((ShootDirection.x * AxisSensitivity),(ShootDirection.z * (AxisSensitivity)));
-		 CursorOffset = Vector3.ClampMagnitude(CursorOffset,CursorRadius);
+		 CursorOffset = new Vector2((ShootDirection.x * CursorCircleRadius),(ShootDirection.z * (CursorCircleRadius)));
 	}
 
 }
