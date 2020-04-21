@@ -7,12 +7,12 @@ public class PlayerLoot : MonoBehaviour
 	public PlayerInventory inventory;
 	public float ObjectLootSpeed;
 	public AudioSource SoundPlayer;
+
 	public void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "Money")
 		{
 			StartCoroutine(CallLoot(other.GetComponent<Money>()));
-			
 		}
 	}
 
