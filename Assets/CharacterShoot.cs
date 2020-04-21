@@ -32,7 +32,7 @@ public class CharacterShoot : MonoBehaviour
 	public FireWeapon CurrentWeapon;
 	public ScopeCursor cursor;
 	Vector3 ShootOffset = new Vector3(0,0,0);
-	public Vector2 AxisSensitivity = new Vector3(0,0,0);
+	public Vector2 AxisSensitivity;
 	public void Update()
 	{  
 		cursor.SetCursorPosition(GetShootDirection());
@@ -72,13 +72,9 @@ public class CharacterShoot : MonoBehaviour
 
 	public Vector3 GetShootDirection()
 	{
-
-		Vector3 VectorZero = Vector3.zero;
-		ShootOffset += new Vector3(GetMousePosX() * (Time.deltaTime * AxisSensitivity.x),0,GetMousePosY() * (Time.deltaTime * AxisSensitivity.y));
-		ShootOffset = Vector3.ClampMagnitude(ShootOffset,300);
-		Debug.Log(ShootOffset);
-		Vector3 ShootDirection = ShootOffset;
-		return ShootDirection;
+		ShootOffset += new Vector3(GetMousePosX() * AxisSensitivity.x, 0,GetMousePosY() * AxisSensitivity.y);
+		ShootOffset = Vector3.ClampMagnitude(ShootOffset,1);
+		return ShootOffset;
 	}
 
 
