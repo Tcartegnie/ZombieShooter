@@ -15,6 +15,8 @@ public class ScoreManager : MonoBehaviour
 	public ScoreDisplayer ScoreDisplay;
 
 	int ZombieCountKiller = 0;
+	int DisplayedZombieCountKiller = 0;
+	int MaxZombieCount = 0;
 	float ZombieMultiplicatorCount = 1;
 
 	public void Start()
@@ -23,10 +25,22 @@ public class ScoreManager : MonoBehaviour
 		DisplayMultiplicator();
 	}
 
+	public void SetMaxZombieCount(int value)
+	{
+		MaxZombieCount = value;
+	}
+
+	public void ResetCountKiller()
+	{
+		DisplayedZombieCountKiller = 0;
+		DisplayZombieCount();
+	}
+
 	public void AddCountKiller()
 	{
 		ZombieCountKiller += 1;
-		debugUI.DisplayZombieCount(ZombieCountKiller);
+		DisplayedZombieCountKiller += 1;
+		//debugUI.DisplayZombieCount(DisplayedZombieCountKiller);
 		CheckZombieCountKiller();
 		DisplayZombieCount();
 	}
@@ -73,7 +87,7 @@ public class ScoreManager : MonoBehaviour
 
 	public void DisplayZombieCount()
 	{
-		ZombieCount.text = ZombieCountKiller + "/" + Mathf.Infinity;
+		ZombieCount.text = DisplayedZombieCountKiller + "/" + MaxZombieCount;
 	}
 
 	public void DisplayMultiplicator()
