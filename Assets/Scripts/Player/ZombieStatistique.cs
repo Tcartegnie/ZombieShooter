@@ -21,7 +21,7 @@ public class ZombieStatistique : CharacterStatistique
 		Zombie.PauseNavMeshAgent();
 		Collider.Push();
 		ColliderBullet.enabled = (false);
-		ZombieWavesManager.OnZombieDeath();
+		ZombieWavesManager.OnZombieDeath(gameObject);
 		money.DropMoney();
 		StartCoroutine(DestroyCorps());
 	}
