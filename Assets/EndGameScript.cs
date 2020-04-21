@@ -19,6 +19,7 @@ public class EndGameScript : MonoBehaviour
 	public Image EndGamePicture;
 	public GameObject EndGameRect;
 	public PlayerStatistique playerStatistique;
+	public PlayerLoot Playerloot;
 	private void Start()
 	{
 		//FadeVictory();
@@ -38,7 +39,7 @@ public class EndGameScript : MonoBehaviour
 
 	public void OnContinuePressed()
 	{
-
+		SceneManager.LoadScene(3);
 	}
 
 	public void OnReturnToMainMenu()
@@ -69,6 +70,7 @@ public class EndGameScript : MonoBehaviour
 		StartCoroutine(FadeEndGame());
 	}
 
+
 	IEnumerator FadeEndGame()
 	{
 		EndGameRect.SetActive(true);
@@ -87,6 +89,7 @@ public class EndGameScript : MonoBehaviour
 		Continue.gameObject.SetActive(true);
 		ReturnToMainMenu.gameObject.SetActive(true);
 		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
 		//Time.timeScale = 0;
 	}
 
