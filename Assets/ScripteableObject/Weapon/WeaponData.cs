@@ -20,6 +20,7 @@ public class WeaponData : ScriptableObject
 	public int MaxAmmo;
 	public Vector2 Spread;
 	public Sprite WeaponPicture;
+	public int BulletsStrenght;
 	[Space]
 	public bool Buyed;
 	[Space]
