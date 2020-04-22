@@ -18,11 +18,12 @@ public class CharacterCollision : MonoBehaviour
 		}
 	}
 
-	public virtual void Hit(GameObject collision)
+	public virtual void Hit(GameObject other)
 	{
-		stats.Hit(collision.GetComponent<Bullet>().GetDamage());
-		PlayFx(collision.transform);
-		LastColliderHit = collision.transform;
+		LastColliderHit = other.transform;
+		stats.Hit(other.GetComponent<Bullet>().GetDamage());
+		other.GetComponent<Bullet>().OnHit();
+		PlayFx(other.transform);
 	}
 
 	public void PlayFx(Transform ImpactPoint)
