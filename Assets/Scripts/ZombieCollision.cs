@@ -8,13 +8,11 @@ public class ZombieCollision : CharacterCollision
 
 
 
-	public override void Hit(GameObject collision)
+	public override void Hit(GameObject other)
 	{
-		base.Hit(collision);
-		//Sounds.PlayRandomSound("ZombieHit");
+		base.Hit(other);
 		clip.SetTrigger("Hit");
-	
-		//PlayHitAnimation;
+
 	}
 
 }
