@@ -60,7 +60,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: OnBeginReloadAnimation
+        functionName: ReloadCurrentWeapon
         data: 
         objectReferenceParameter: {fileID: 6820192824347731215, guid: b40ec1e0bc791e144ad0525ee4f47550,
           type: 3}
@@ -117,14 +117,6 @@ ModelImporter:
         messageOptions: 0
       - time: 0.9826389
         functionName: PlayFootStepSound
-        data: 
-        objectReferenceParameter: {fileID: 6820192824347731215, guid: b40ec1e0bc791e144ad0525ee4f47550,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9964912
-        functionName: OnEndReloadAnimation
         data: 
         objectReferenceParameter: {fileID: 6820192824347731215, guid: b40ec1e0bc791e144ad0525ee4f47550,
           type: 3}

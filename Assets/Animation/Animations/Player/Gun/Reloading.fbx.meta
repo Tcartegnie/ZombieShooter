@@ -60,15 +60,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: OnBeginReloadAnimation
-        data: 
-        objectReferenceParameter: {fileID: 6820192824347731215, guid: b40ec1e0bc791e144ad0525ee4f47550,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9873737
-        functionName: OnEndReloadAnimation
+        functionName: ReloadCurrentWeapon
         data: 
         objectReferenceParameter: {fileID: 6820192824347731215, guid: b40ec1e0bc791e144ad0525ee4f47550,
           type: 3}
