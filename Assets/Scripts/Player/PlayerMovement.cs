@@ -57,9 +57,9 @@ public class PlayerMovement : MonoBehaviour
 
 	public Vector3 GetForwardDirection(float InputValue)
 	{
-		Vector3 CameraOFfset = Vector3.Cross(camera.right,Vector3.up);
+		Vector3 CameraOffset = Vector3.Cross(camera.right,Vector3.up);
 
-		Vector3 Direction = (CameraOFfset * InputValue);
+		Vector3 Direction = (CameraOffset * InputValue);
 
 		return Direction;
 		

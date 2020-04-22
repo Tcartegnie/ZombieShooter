@@ -43,6 +43,8 @@ public class BulletEmitter : MonoBehaviour
 			SetCanonScope(Direction);
 			GameObject currentBullet = new GameObject();
 			currentBullet = Instantiate(data.Bullet, Canon.position, Quaternion.LookRotation(GetSpreadDirection(data.Spread)));
+			currentBullet.GetComponent<Bullet>().BulletStrenght = data.BulletsStrenght;
+			currentBullet.GetComponent<Bullet>().SetDamage(data.Damage);
 			yield return new WaitForSeconds(data.CoolDownBetweenBullet);
 		}
 		UiFxManager.StopFireFX();

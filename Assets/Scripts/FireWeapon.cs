@@ -8,6 +8,7 @@ public enum WeaponType
 	Gun,
 	Rifle,
 	Shotgun,
+	Carabine
 
 }
 public class FireWeapon : MonoBehaviour
@@ -35,10 +36,9 @@ public class FireWeapon : MonoBehaviour
  
 
 
-	public void Reload()
+	public void Reload(float ReloadTime)
 	{
-		if(!IsLoading)
-		StartCoroutine(Reloading());
+		StartCoroutine(Reloading(ReloadTime));
 	}
 
 
@@ -58,13 +58,13 @@ public class FireWeapon : MonoBehaviour
 	{
 		if(!OnCoolDown && CheckAmmoCount() && !IsLoading)
 		{
+			characterShoot.PlayAnimationShoot();
 			OnCoolDown = true;
 			bulletEmitter.Shoot(-characterShoot.GetShootDirection(), weaponData);
 			weaponData.LostBullets(1);
 			WeaponSound.Play();
 			StartCoroutine(ShootCoolDown());
 			Recoil.PlayRecoil(weaponData);
-			characterShoot.PlayAnimationShoot();
 		}
 	}
 	
@@ -79,20 +79,12 @@ public class FireWeapon : MonoBehaviour
 	}
 
 
-	public void OnBeginReloadAnimation()
-	{
-		//IsLoading = true;
-	}
 
-	public void OnEndReloadAnimation()
-	{
-		//IsLoading = false;
-	}
 
-	IEnumerator Reloading()
+	IEnumerator Reloading(float reloadTime)
 	{
 		IsLoading = true;
-		yield return new  WaitForSeconds(weaponData.ReloadTime);
+		yield return new  WaitForSeconds(reloadTime);
 		weaponData.AddBullet(inventory.GetAmmoForReload());
 		IsLoading = false;
 	}

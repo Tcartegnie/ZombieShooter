@@ -120,6 +120,7 @@ public class PlayerInventory : MonoBehaviour
 		SetAmmo(WeaponType.Shotgun, 60);
 		SetAmmo(WeaponType.Gun, 120);
 		SetAmmo(WeaponType.Rifle, 300);
+		SetAmmo(WeaponType.Carabine, 120);
 	}
 
 
