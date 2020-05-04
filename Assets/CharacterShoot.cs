@@ -8,7 +8,7 @@ public class CharacterShoot : MonoBehaviour
 
 
 
-
+	public bool IsWeaponReloading;
 	public AudioSource Sound;
 
 	public Camera cam;
@@ -111,7 +111,7 @@ public class CharacterShoot : MonoBehaviour
 
 	public void Shoot()
 	{
-		if (Inventory.CurrentInstanciedWeapon != null)
+		if (Inventory.CurrentInstanciedWeapon != null && !IsWeaponReloading)
 		{
 			IsWeaponEquiped = true;
 			//animator.SetBool("WeaponEquiped", IsWeaponEquiped);
@@ -141,5 +141,12 @@ public class CharacterShoot : MonoBehaviour
 		
 	}
 
-
+	public void SetReloadingTrue()
+	{
+		IsWeaponReloading = true;
+	}
+	public void SetReloadingFalse()
+	{
+		IsWeaponReloading = false;
+	}
 }

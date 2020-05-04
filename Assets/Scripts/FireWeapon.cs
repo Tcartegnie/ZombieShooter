@@ -42,21 +42,9 @@ public class FireWeapon : MonoBehaviour
 	}
 
 
-	private bool CheckAmmoCount()
-	{
-		if((weaponData.CurrentLoader -1) >= 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 	public void CallShoot()
 	{
-		if(!OnCoolDown && CheckAmmoCount() && !IsLoading)
+		if(!OnCoolDown && weaponData.CheckAmount())
 		{
 			characterShoot.PlayAnimationShoot();
 			OnCoolDown = true;
@@ -83,10 +71,10 @@ public class FireWeapon : MonoBehaviour
 
 	IEnumerator Reloading(float reloadTime)
 	{
-		IsLoading = true;
+		characterShoot.SetReloadingTrue();
 		yield return new  WaitForSeconds(reloadTime);
 		weaponData.AddBullet(inventory.GetAmmoForReload());
-		IsLoading = false;
+		characterShoot.SetReloadingFalse();
 	}
 
 	IEnumerator ShootCoolDown()
