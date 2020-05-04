@@ -50,5 +50,17 @@ public class WeaponData : ScriptableObject
 		CurrentLoader += BulletNumber;
 		CurrentLoader = Mathf.Clamp(CurrentLoader, 0, LoadoutMax);
 	}
+
+	public bool CheckAmount()
+	{
+		if ((CurrentLoader - 1) >= 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 }
