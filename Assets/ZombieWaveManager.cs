@@ -11,22 +11,27 @@ public class ZombieWaveManager : MonoBehaviour
 	public float ZombieSpawnTime;
 	public Transform target;
 	public GameObject ExitLevel;
+	public ScoreUI scoreUI;
 	ZombieFactory factory;
-
+	public int CurrentZombieCOunt;
 
 	List<GameObject> InstanciedZombies = new List<GameObject>();
+	public GameObject NextWaveScreen;
+
 
 	int WaveIndex = 0;
 
 	public void Start()
 	{
-		factory = ZombieFactory.instance;
+		factory = ZombieFactory.Instance();
 		StartCoroutine(InstanciatedZombiesWave(ZombieWave[0]));
+		scoreManager = ScoreManager.Instance();
 	}
 
 	public IEnumerator InstanciatedZombiesWave(ZombieWaveData data)
 	{
 		scoreManager.SetMaxZombieCount(data.type.Count);
+		scoreUI.ZombieMaxWave = data.type.Count;
 		for (int i= 0; i < data.type.Count; i++ )
 		{
 			GameObject zombie = factory.InstanciateEntityByName(data.type[i], ZombiesSpawn[Random.Range(0,ZombiesSpawn.Length)].position);
@@ -35,14 +40,17 @@ public class ZombieWaveManager : MonoBehaviour
 			InstanciedZombies.Add(zombie);
 			 yield return new WaitForSeconds(ZombieSpawnTime);
 		}
+		
 	}
-	
+
 	public void OnZombieDeath(GameObject zombie)
 	{
 		scoreManager.AddScore(10);
 		scoreManager.AddCountKiller();
-		scoreManager.UpdateScore();
 		InstanciedZombies.Remove(zombie);
+		scoreUI.CurrentZombiecount += 1;
+		scoreUI.DisplayZombieCount();
+		scoreUI.DisplayScoreCount();
 		CheckZombieWaveState();
 	}
 
@@ -50,7 +58,7 @@ public class ZombieWaveManager : MonoBehaviour
 	public void InstantaiteNewWave()
 	{
 		StartCoroutine(InstanciatedZombiesWave(ZombieWave[WaveIndex]));
-		scoreManager.ResetCountKiller();
+		scoreUI.ResetCountKiller();
 	}
 
 	public void CheckZombieWaveState()
@@ -60,12 +68,24 @@ public class ZombieWaveManager : MonoBehaviour
 			WaveIndex += 1;
 			if (WaveIndex < ZombieWave.Count)
 			{
-				InstantaiteNewWave();
+				StartCoroutine(NextWaveSign());
 			}
 			else if(WaveIndex == ZombieWave.Count)
 			{
 				ExitLevel.SetActive(true);
 			}
 		}
+	}
+
+	public IEnumerator NextWaveSign()
+	{ 
+		for (int i = 0; i < 3; i++)
+		{
+			NextWaveScreen.SetActive(true);
+			yield return new WaitForSeconds(0.5f);
+			NextWaveScreen.SetActive(false);
+			yield return new WaitForSeconds(0.5f);
+		}
+		InstantaiteNewWave();
 	}
 }
