@@ -8,9 +8,17 @@ public class ScoreDisplayer : MonoBehaviour
 	public Text text;
 	public ScaleTransition ScaleTransition;
 	public ColorTranstion ColorTransition;
-   public void UpdateScore(int score)
+
+	public void Update()
 	{
-		text.text = score.ToString();
+		
+	}
+
+	public void UpdateScore(string scoreText)
+	{
+		text.text = scoreText;
+		ScaleRect();
+		HightLightRect();
 	}
 	
 	public void ScaleRect()
