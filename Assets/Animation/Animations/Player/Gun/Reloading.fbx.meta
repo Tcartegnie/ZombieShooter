@@ -67,6 +67,22 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0
+        functionName: SetReloadingTrue
+        data: 
+        objectReferenceParameter: {fileID: 6820192824347731215, guid: b40ec1e0bc791e144ad0525ee4f47550,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9905661
+        functionName: SetReloadingFalse
+        data: 
+        objectReferenceParameter: {fileID: 6820192824347731215, guid: b40ec1e0bc791e144ad0525ee4f47550,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
