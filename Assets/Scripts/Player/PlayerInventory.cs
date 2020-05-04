@@ -22,7 +22,7 @@ public class PlayerInventory : MonoBehaviour
 	public int Money;
 
 	public ScoreManager ScoreManager;
-
+	public ScoreUI scoreUI;
 	Dictionary<WeaponType, int> BulletDictionary = new Dictionary<WeaponType, int>();
 
 
@@ -174,8 +174,9 @@ public class PlayerInventory : MonoBehaviour
 
 	public void AddMoney(int value)
 	{
-		Money += value;
-		ScoreManager.DisplayMoneyCount(Money);
+		ScoreManager sM = ScoreManager.Instance();
+		sM.AddMoney(value);
+		scoreUI.DisplayMoneyCount();
 	}
 
 
