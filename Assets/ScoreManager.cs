@@ -6,93 +6,80 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
 
+
+
+	int score;
+	int zombiecount;
+	int money;
+	int TotalScore;
+
+	public int Score { get => score; set => score = value; }
+	public int Zombiecount { get => zombiecount; set => zombiecount = value; }
+	public int Money { get => money; set => money = value; }
+
+	public static ScoreManager instance;
+
 	public DebugUI debugUI;
 
-	int Score;
-	public Text ZombieCount;
-	public Text ScoreMultiplicator;
-	public ScoreDisplayer MoneyDisplay;
-	public ScoreDisplayer ScoreDisplay;
 
-	int ZombieCountKiller = 0;
+
 	int DisplayedZombieCountKiller = 0;
 	int MaxZombieCount = 0;
-	float ZombieMultiplicatorCount = 1;
+	public float ZombieMultiplicatorCount = 1;
 
-	public void Start()
+	public static ScoreManager Instance()
 	{
-		DisplayZombieCount();
-		DisplayMultiplicator();
+		if(instance == null)
+		{
+			instance = new GameObject("ScoreManager").AddComponent<ScoreManager>();
+			DontDestroyOnLoad(instance);
+		}
+		return instance;
 	}
+
+
 
 	public void SetMaxZombieCount(int value)
 	{
 		MaxZombieCount = value;
 	}
 
-	public void ResetCountKiller()
-	{
-		DisplayedZombieCountKiller = 0;
-		DisplayZombieCount();
-	}
+
 
 	public void AddCountKiller()
 	{
-		ZombieCountKiller += 1;
+		Zombiecount += 1;
 		DisplayedZombieCountKiller += 1;
-		//debugUI.DisplayZombieCount(DisplayedZombieCountKiller);
 		CheckZombieCountKiller();
-		DisplayZombieCount();
 	}
 
 	public void CheckZombieCountKiller()
 	{
-		if(ZombieCountKiller % 5 == 0)
+		if (Zombiecount % 5 == 0)
 		{
 			ZombieMultiplicatorCount += 0.5f;
-			DisplayMultiplicator();
 		}
 
 	}
+
 
 	public void AddScore(float score)
 	{
 		Score += (int)(score * ZombieMultiplicatorCount);
 	}
 
-	public int GetScore()
+	public void AddMoney(float value)
 	{
-		return Score;
-	}
-
-	public void UpdateScore()
-	{
-		DisplayScore(GetScore());
+		Money += (int)(value * ZombieMultiplicatorCount);
 	}
 
 
-	public void DisplayScore(int moneycount)
+	public int ComputeScore()
 	{
-		ScoreDisplay.UpdateScore(moneycount);
-		ScoreDisplay.HightLightRect();
-		ScoreDisplay.ScaleRect();
-	}
-
-	public void DisplayMoneyCount(int moneycount)
-	{
-		MoneyDisplay.UpdateScore(moneycount);
-		MoneyDisplay.HightLightRect();
-		MoneyDisplay.ScaleRect();
-	}
-
-	public void DisplayZombieCount()
-	{
-		ZombieCount.text = DisplayedZombieCountKiller + "/" + MaxZombieCount;
-	}
-
-	public void DisplayMultiplicator()
-	{
-		ScoreMultiplicator.text = "x" + ZombieMultiplicatorCount;
+		int TotalScore = Score;
+		TotalScore += zombiecount * 25;
+		TotalScore += Money / 2;
+		return TotalScore;
 	}
 
 }
