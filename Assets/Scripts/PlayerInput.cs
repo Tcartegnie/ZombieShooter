@@ -29,12 +29,12 @@ public class PlayerInput : MonoBehaviour
 			PlayerShoot.Shoot();
 		}
 
-		if (Input.GetKeyDown(KeyCode.R))
+		if (Input.GetKeyUp(KeyCode.R))
 		{
-			PlayerShoot.ReloadWeapon();
+			PlayerShoot.ReloadCurrentWeapon();
 		}
 
-		if (Input.GetKeyDown(KeyCode.A))
+		if (Input.GetKeyUp(KeyCode.A))
 		{
 			CharacterInventory.HoldWeapon();
 		}

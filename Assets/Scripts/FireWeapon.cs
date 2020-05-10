@@ -36,9 +36,9 @@ public class FireWeapon : MonoBehaviour
  
 
 
-	public void Reload(float ReloadTime)
+	public void Reload()
 	{
-		StartCoroutine(Reloading(ReloadTime));
+		StartCoroutine(Reloading());
 	}
 
 
@@ -69,10 +69,10 @@ public class FireWeapon : MonoBehaviour
 
 
 
-	IEnumerator Reloading(float reloadTime)
+	IEnumerator Reloading()
 	{
 		characterShoot.SetReloadingTrue();
-		yield return new  WaitForSeconds(reloadTime);
+		yield return new  WaitForSeconds(weaponData.ReloadTime);
 		weaponData.AddBullet(inventory.GetAmmoForReload());
 		characterShoot.SetReloadingFalse();
 	}
