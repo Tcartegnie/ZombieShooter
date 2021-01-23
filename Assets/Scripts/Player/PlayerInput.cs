@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerInput : MonoBehaviour
 {
 	public PlayerMovement PlayerMovement;
 	public CharacterShoot PlayerShoot;
 	public PlayerInventory CharacterInventory;
 	public WeaponShop Shop;
+	public RectTransform CenterJoystickPosition;
+	public JoystickPhone joyStick;
+	public JoystickPhone ShootjoyStick;
 	float ForwardInput;
 	float LateralInput;
 	// Update is called once per frame
@@ -24,30 +27,52 @@ public class PlayerInput : MonoBehaviour
 	void CheckShootInput()
 	{
 		PlayerShoot.CheckCoolDownWeaponHolding();
+
+
+	if (ShootjoyStick.GetDirection().magnitude > 0.2)
+	{
+			PlayerShoot.Shoot();
+	}
+
 		if (Input.GetMouseButtonUp(0))
 		{
 			PlayerShoot.Shoot();
 		}
 
-		if (Input.GetKeyUp(KeyCode.R))
+		if (Input.GetKeyDown(KeyCode.R))
 		{
-			PlayerShoot.ReloadCurrentWeapon();
+			PlayerShoot.ReloadWeapon();
 		}
 
-		if (Input.GetKeyUp(KeyCode.A))
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+
+		if (Input.GetKeyDown(KeyCode.A))
 		{
 			CharacterInventory.HoldWeapon();
 		}
 
 	}
 
+
 	void CheckMovementInput()
 	{
 		ForwardInput = Input.GetAxis("Vertical");
 		LateralInput = Input.GetAxis("Horizontal");
 
-		PlayerMovement.Walk(ForwardInput,LateralInput);
 	
+
+
+#if UNITY_ANDROID
+		//MoveOnTouch();
+		LateralInput = joyStick.GetDirection().x;
+		ForwardInput = joyStick.GetDirection().y;
+#endif
+
+		PlayerMovement.Walk(ForwardInput, LateralInput);
+
 		if (!PlayerShoot.IsWeaponEquiped)
 		{
 			PlayerMovement.LookInWalkingDirection();

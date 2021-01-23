@@ -24,8 +24,8 @@ public class ZombieWaveManager : MonoBehaviour
 	public void Start()
 	{
 		factory = ZombieFactory.Instance();
-		StartCoroutine(InstanciatedZombiesWave(ZombieWave[0]));
 		scoreManager = ScoreManager.Instance();
+		StartCoroutine(InstanciatedZombiesWave(ZombieWave[0]));
 	}
 
 	public IEnumerator InstanciatedZombiesWave(ZombieWaveData data)

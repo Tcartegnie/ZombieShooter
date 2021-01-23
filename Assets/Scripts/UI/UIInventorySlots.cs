@@ -7,6 +7,7 @@ public class UIInventorySlots : MonoBehaviour
 
 	public WeaponDataList weaponDataBase;
 	public List<UISlots> WeaponSlots = new List<UISlots>();
+	public List<QuickSelectWeaponUI> QuickWeaponSlots = new List<QuickSelectWeaponUI>();
 
 	int SlotID;
 
@@ -20,6 +21,8 @@ public class UIInventorySlots : MonoBehaviour
 		{
 			WeaponData weapon = weaponDataBase.GetWeaponByName(SelectedWeaponName);
 			WeaponSlots[SlotID].SetInventorySlotsData(weapon);
+			QuickWeaponSlots[SlotID].gameObject.SetActive(true);
+			QuickWeaponSlots[SlotID].SetPicture(weapon.WeaponPicture);
 		}
 	}
 
