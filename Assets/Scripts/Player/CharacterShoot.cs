@@ -59,14 +59,15 @@ public class CharacterShoot : MonoBehaviour
 		animator.SetTrigger("Reload");
 	}
 
-	public void ReloadCurrentWeapon(float ReloadTime)
+	public void ReloadCurrentWeapon()
 	{
+	
 		WeaponData data = CurrentWeapon.weaponData;
 		if (Inventory.GetAmmoQuantity(data.WeaponType) > 0)
 		{
+			ReloadWeapon();
 			Sound.PlayOneShot(Sound.clip);
-
-			CurrentWeapon.Reload(ReloadTime);
+			CurrentWeapon.Reload();
 		}
 	}
 
