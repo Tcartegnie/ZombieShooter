@@ -32,6 +32,10 @@ public class PlayerInventory : MonoBehaviour
 		ChangeWeapon(GetCurrentWeapon().weaponData);
 	}
 
+	public void OnInvenvtoryButtonPressed()
+	{
+		TurnOnOffInventory();
+	}
 
 	public void Update()
 	{

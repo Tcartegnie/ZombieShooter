@@ -15,7 +15,10 @@ public class SoundsListData : ScriptableObject
 	{
 		foreach (SoundsData sound in Soundsdatas)
 		{
-			Multiplesoundsdatas.Add(sound.ListName, sound.sounds);
+			if (!Multiplesoundsdatas.ContainsKey(sound.ListName))
+			{
+				Multiplesoundsdatas.Add(sound.ListName, sound.sounds);
+			}
 		}
 	}
 

@@ -33,6 +33,8 @@ public class CharacterShoot : MonoBehaviour
 	public ScopeCursor cursor;
 	Vector3 ShootOffset = new Vector3(0,0,0);
 	public Vector2 AxisSensitivity;
+	public JoystickPhone ShootJoyStick;
+
 	public void Update()
 	{  
 		cursor.SetCursorPosition(GetShootDirection());
@@ -71,11 +73,28 @@ public class CharacterShoot : MonoBehaviour
 
 	public Vector3 GetShootDirection()
 	{
-		ShootOffset += new Vector3(GetMousePosX() * AxisSensitivity.x, 0,GetMousePosY() * AxisSensitivity.y);
-		ShootOffset = Vector3.ClampMagnitude(ShootOffset,1);
+
+//#if UNITY_PC || UNITY_EDITOR
+		return GetShootDirectionOnPC();
+//#elif UNITY_ANDROID
+	//	return GetShootDirectionOnMobile();
+//#endif
+	}
+
+	public Vector3 GetShootDirectionOnPC()
+	{
+		//ShootOffset = ShootJoyStick.GetDirection();
+		ShootOffset += new Vector3(GetMousePosX() * AxisSensitivity.x, 0, GetMousePosY() * AxisSensitivity.y);
+		ShootOffset = Vector3.ClampMagnitude(ShootOffset, 1);
 		return ShootOffset;
 	}
 
+	public Vector3 GetShootDirectionOnMobile()
+	{
+		ShootOffset = new Vector3(ShootJoyStick.GetDirection().x,0, ShootJoyStick.GetDirection().y);
+		ShootOffset = Vector3.ClampMagnitude(ShootOffset, 1);
+		return ShootOffset;
+	}
 
 	public Vector3 GetTargetDirection(Vector3 targetPosition)
 	{
@@ -101,13 +120,6 @@ public class CharacterShoot : MonoBehaviour
 
 	}
 
-	public Ray GetHitOnClick()
-	{
-		Vector3 ScreenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Mathf.Infinity);
-		Ray ray = cam.ScreenPointToRay(ScreenPos);
-
-		return ray;
-	}
 
 	public void Shoot()
 	{
